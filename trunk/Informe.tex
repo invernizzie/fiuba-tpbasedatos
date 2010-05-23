@@ -87,6 +87,18 @@
 	\end{itemize}
 
 \section{Supuestos que justifican el modelo (Hipótesis) }
+	\begin{enumerate}
+		\item La alta de los componentes y la asignación de huecos se realiza apenás se produce el pedido.
+		\item Se guarda un solo componente en cada hueco. El tamaño de los huecos no es uniforme.
+	\end{enumerate}
+	
+	A continuación se presenta una serie de hipótesis acerca de la parte no especificada del sistema.
+	
+	\begin{enumerate}
+		\item La relación ... tendrá una clave primaria que será .... 
+	
+	\end{enumerate}
+
 
 
 \section{Diccionario de datos}
@@ -103,114 +115,114 @@
 		
 \section{Modelo Relacional}
 	\subsection{ZONA\_PC}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item id\_zona
 				\item nombre\_configuracion
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item id\_zona
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item id\_zona
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item nombre\_configuracion
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{ZONA\_COMPONENTE}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item id\_zona
 				\item nombre\_tipo
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item id\_zona
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item id\_zona
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item nombre\_tipo
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{HUECO\_COMPONENTE}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item id\_zona
 				\item columna
 				\item altura
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item id\_zona
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{HUECO\_PC}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item id\_zona
 				\item columna
 				\item altura
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item id\_zona
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{UBICACIÓN\_COMPONENTE}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item número\_serie
 				\item id\_zona
 				\item columna
 				\item altura
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item número\_serie
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item número\_serie
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item número\_serie
 				\item id\_zona
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{COMPONENTE}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item número\_serie
 				\item nombre\_subtipo
@@ -219,127 +231,127 @@
 				\item descripción
 				\item recibido
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item número\_serie
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item número\_serie
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item nombre\_subtipo
 				\item número\_suministro
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 			\begin{itemize}
 				\item fecha\_llegada
 				\item descripción
 			\end{itemize}
 		
 	\subsection{RESERVA}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item número\_serie
 				\item número\_operario
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item número\_serie
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item número\_serie
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item número\_serie
 				\item número\_operario
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{COMPOSICIÓN\_PC}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item número\_serie
 				\item código\_PC
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item número\_serie
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item número\_serie
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item número\_serie
 				\item código\_PC
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{SUBTIPO\_COMPONENTE}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item nombre\_subtipo
 				\item desciripción
 				\item nombre\_tipo
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item nombre\_subtipo
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item nombre\_subtipo
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item nombre\_tipo
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{TIPO\_COMPONENTE}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item nombre\_tipo
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item nombre\_tipo
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item nombre\_tipo
 			\end{itemize}
-		\subsubsection{Claves foráneas}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Claves foráneas}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{SUMINISTRO}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item número\_suministro
 				\item CUIT\_proveedor
 				\item servido
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item número\_suministro
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item número\_suministro
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item CUIT\_proveedor
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{PROVEEDOR}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item CUIT\_proveedor
 				\item Nombre
@@ -348,16 +360,16 @@
 				\item FAX
 				\item email
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item CUIT\_proveedor
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item CUIT\_proveedor
 			\end{itemize}
-		\subsubsection{Claves foráneas}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Claves foráneas}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 			\begin{itemize}
 				\item Nombre
 				\item Dirección
@@ -367,101 +379,101 @@
 			\end{itemize}
 		
 	\subsection{PROVISIÓN}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item nombre\_subtipo
 				\item CUIT\_proveedor
 				\item precio\_unitario
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item (nombre\_subtipo, CUIT\_proveedor)
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item (nombre\_subtipo, CUIT\_proveedor)
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item nombre\_subtipo
 				\item CUIT\_proveedor
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{UBICACIÓN\_PC}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item código\_PC
 				\item id\_zona
 				\item columna
 				\item altura
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item código\_PC
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item código\_PC
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item código\_PC
 				\item id\_zona
 				\item (id\_zona, columna, altura)
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{PEDIDO}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item número\_pedido
 				\item CUIT\_cliente
 				\item fecha\_pedido
 				\item dirección\_entrega
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item número\_pedido
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item número\_pedido
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item CUIT\_cliente
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 			\begin{itemize}
 				\item fecha\_pedido
 				\item dirección\_entrega
 			\end{itemize}
 		
 	\subsection{ITEM\_PEDIDO}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item código\_PC
 				\item número\_pedido
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item código\_PC
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item código\_PC
 			\end{itemize}
-		\subsubsection{Claves foráneas}
+		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item número\_pedido			
 				\item código\_PC
 			\end{itemize}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
 	\subsection{CLIENTE}
-		\subsubsection{Atributos}
+		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item CUIT
 				\item Nombre
@@ -470,16 +482,16 @@
 				\item FAX
 				\item email
 			\end{itemize}
-		\subsubsection{Claves candidatas}
+		\subsubsection*{Claves candidatas}
 			\begin{itemize}
 				\item CUIT
 			\end{itemize}
-		\subsubsection{Clave primaria}
+		\subsubsection*{Clave primaria}
 			\begin{itemize}
 				\item CUIT
 			\end{itemize}
-		\subsubsection{Claves foráneas}
-		\subsubsection{Atributos que pueden tomar valores nulos}
+		\subsubsection*{Claves foráneas}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
 			\begin{itemize}
 				\item Nombre
 				\item Dirección
@@ -492,9 +504,29 @@
 	\subsection{Diagrama del Modelo de Tablas}
 		\includegraphics[scale=.5]{modelo_referencias.PNG}
 		
+	
+	
+		
+		
 	\subsection{Sentencias DDL}
+	
+\section{Alternativas en la transformación de MER al modelo de tablas}		
+	\paragraph{Uso de relaci\'on general para zonas contra relaciones solo para zonas especificas (PC y componentes). \\}
+		La primera alternativa nos permite tener un id \'unico por zona. 
+		Esto pod\'ia llegar a ser conveniente en caso de que se necesitar\'an hacer consultas para todas las zonas de los dos tipos. 
+		Como estas consultas no son necesarias, el uso de esta relaci\'on es redundante. 
+		Las consultas se hacen unicamente sobre zonas de PCs y zonas de Componentes.
+		
+	\paragraph{Uso de CUIT como clave primaria de proveedores y clientes contra una clave primaria numerica m\'as pequeña.\\}
+		La segunda alternativa parec\'ia ser una buena opci\'on ya que utilizar las consultas usando el CUIT pueden resultar m\'as costosas que consultas en las cuales se comparen numeros cortos. 
+		De todas formas, nos inclinamos por la primera opci\'on porque encontramos m\'as de un requisito que justificaba el uso del CUIT como clave primaria. Algunos de estos requisitos son los siguientes:
+			\begin{itemize}
+				\item \textit{Si el usuario desea dar de baja a un cliente existente, comunicar\'a al sistema el CUIT del cliente en cuesti\'on.}
+				
+				\item \textit{Los pedidos de los clientes ser\'an dados de alta en el sistema. Los datos b\'asicos del pedido son: Fecha del pedido, el CUIT del cliente, el nombre del cliente y la direcci\'on de entrega}		
+			\end{itemize}
 
-Nota: en los casos en que existan diferentes alternativas para efectuar la transformación de MER al modelo de tablas, elegir una única alternativa y enumerar las ventajas y desventajas de la alternativa elegida.
+
 
 
 \end{document}
