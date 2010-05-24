@@ -92,11 +92,15 @@
 	\begin{enumerate}
 		\item La alta de los componentes y la asignación de huecos se realiza apenás se produce el pedido.
 		\item Se guarda un solo componente en cada hueco. El tamaño de los huecos no es uniforme.
+		\item Siempre habrá un hueco disponible para un componente.
+		\item Siempre habrá un hueco disponible para una PC.
 	\end{enumerate}
 	
 	A continuación se presenta una serie de hipótesis acerca de la parte no especificada del sistema.
 	
 	\begin{enumerate}
+		\item La relación UBICACIÓN\_COMPONENTE tendrá una clave primaria que será número\_serie. 
+		\item La relación UBICACIÓN\_PC tendrá una clave primaria que será código\_pc. 
 		\item La relación ... tendrá una clave primaria que será .... 
 	
 	\end{enumerate}
@@ -141,6 +145,12 @@
 				
 				\item \textit{Los pedidos de los clientes ser\'an dados de alta en el sistema. Los datos b\'asicos del pedido son: Fecha del pedido, el CUIT del cliente, el nombre del cliente y la direcci\'on de entrega}		
 			\end{itemize}
+			
+	\paragraph{Creación de relaciones UBICACIÓN\_COMPONENTE y UBICACIÓN\_PC.\\}
+		A pesar de ser la interrelación entre COMPONENTE y HUECO\_COMPONENTE uno a uno, puede ser que un hueco en algún momento dado no tenga ningún componente o que el componente no este en ningún hueco, ya que puede formar parte de una PC o todavía no fue recibido del proveedor.\\
+		La primer transformación habla de que: o la relación COMPONENTE o la relación HUECO\_COMPONENTE tengan una referencia al otro. Esto es viable pero en el caso mencionado arriba habría que inventar o determinar un valor que indique que el hueco esta vacío, al no tener ningún componente asignado, o que el componente no tiene un hueco asignado, al no estar almacenado en el almacén. Nos pareció más viable la realización de una relación denominada UBICACIÓN\_COMPONENTE que tenga para cada componente su ubicación. Si un componente no se encuentra ubicado en ningún hueco no aparecerá en esa tabla, al igual que un hueco en caso de no tener ningún componente asignado.\\
+		Esta relación tendrá como máximo, la cantidad de tuplas máxima entre COMPONENTE y HUECO\_COMPONENTE, con lo cual no será una relación enorme.\\
+		La explicación es similar para el caso de PC y HUECO\_PC, surgiendo la relación UBICACIÓN\_PC.
 
 
 
