@@ -1,4 +1,4 @@
-\subsubsection{Zona}
+		\subsubsection{Zona}
 			\paragraph{Definición:} 
 			
 			Ubicación que agrupa las PCs y los Componentes.
@@ -68,7 +68,7 @@
 			
 			\begin{itemize}
 				\item{\emph{ Número de Serie:}} Número que identifica univocamente a un componente.
-				\item{\emph{ Estado:}} Indica si el componente ya se encuentra en manos de la empresa (Recibido) o si ha sido pedido pero todavía no se encuentra a disposición(Pedido).
+				\item{\emph{ Estado:}} Indica si el componente ya se encuentra en manos de la empresa (Recibido) o si ha sido pedido pero todavía no se encuentra a disposición(Pedido). Este atributo es calculable.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -78,12 +78,14 @@
 		\subsubsection{Suministro}
 			\paragraph{Definición:} 
 			
+			Representa a un pedido realizado al proveedor.
+			
 			
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ Número:}}
+				\item{\emph{ Número:}} Número que identifica univocamente a un suministro.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -99,11 +101,11 @@
 			
 			\begin{itemize}
 				\item{\emph{ CUIT :}} Clave única de indentificación tributaria que sirve para poder identificar inequívocamente a las personas físicas o jurídicas.
-				\item{\emph{ Nombre :}}
-				\item{\emph{ FAX :}}
-				\item{\emph{ Dirección :}}
-				\item{\emph{ Teléfono :}}
-				\item{\emph{ Mail :}}
+				\item{\emph{ Nombre :}} Nombre o razon social de la empresa.
+				\item{\emph{ FAX :}} Número de teléfono en donde el proveedor puede recibir un FAX.
+				\item{\emph{ Dirección :}} Dirección legal, en donde reside el proveedor.
+				\item{\emph{ Teléfono :}} Número de teléfono del proveedor.
+				\item{\emph{ Mail :}} E-mail del proveedor.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -118,7 +120,8 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Nombre\_tipo:} }
+				\item{\emph{Nombre:} } Nombre del tipo de componente. Por ejemeplo: Placa base, Microprocesador, Memoria RAM, etc.
+				\item{\emph{Descripción:} } Breve descripción del tipo de componente.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -133,9 +136,8 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Nombre\_tipo:}}
-				\item{\emph{Nombre\_subtipo:}}
-				\item{\emph{Descripcion:}}
+				\item{\emph{Nombre:}} Nombre del subtipo de compomente. Por ejemplo: Socket 1156 Mini ATX Video OnBoard, Intel i3, etc.
+				\item{\emph{Descripcion:}} Breve descripción del subtipo de componente.
 				
 			\end{itemize}
 			
@@ -184,7 +186,7 @@
 				\paragraph{Especificación de atributos: \\}
 				
 				\begin{itemize}
-					\item{\emph{Número:}}
+					\item{\emph{Número:}} Número asignado al pedido realizado por el cliente.
 				\end{itemize}
 				
 				\paragraph*{Especificación de identificador único:}
@@ -200,11 +202,11 @@
 				
 				\begin{itemize}
 						\item{\emph{ CUIT :}} Clave única de indentificación tributaria que sirve para poder identificar inequívocamente a las personas físicas o jurídicas.
-						\item{\emph{ Nombre :}}
-						\item{\emph{ FAX :}}
-						\item{\emph{ Dirección :}}
-						\item{\emph{ Teléfono :}}
-						\item{\emph{ Mail :}}
+						\item{\emph{ Nombre :}} Nombre real del cliente, el que figura en el DNI.
+						\item{\emph{ FAX :}} Número de teléfono en donde el cliente puede recibir un FAX.
+						\item{\emph{ Dirección :}} Dirección legal, en donde reside el cliente.
+						\item{\emph{ Teléfono :}} Número de teléfono del cliente.		
+				\item{\emph{ Mail :}} E-mail del cliente.
 				\end{itemize}
 				
 				\paragraph*{Especificación de identificador único:}
@@ -219,7 +221,7 @@
 				\paragraph{Especificación de atributos: \\}
 				
 				\begin{itemize}
-					\item{\emph{Número:}}
+					\item{\emph{Número:}} Número asignado a una orden de producción.
 				\end{itemize}
 				
 				\paragraph*{Especificación de identificador único:}
@@ -235,8 +237,8 @@
 				
 				\begin{itemize}
 					\item{\emph{DNI:}} Documento para la identificación de una persona.
-					\item{\emph{ Nombre :}}
-					\item{\emph{ Fecha de Entrada a la Empresa :}}
+					\item{\emph{ Nombre :}} Nombre real del operario, el que figura en el DNI.
+					\item{\emph{ Fecha de Entrada a la Empresa :}} Fecha en la que el operario empezó a trabajar en la empresa.
 					
 				\end{itemize}
 				
