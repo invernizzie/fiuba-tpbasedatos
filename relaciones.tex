@@ -1,0 +1,389 @@
+
+
+	\subsection{ZONA\_PC}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item id\_zona
+				\item nombre\_configuracion
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item id\_zona
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item id\_zona
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item nombre\_configuracion
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{ZONA\_COMPONENTE}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item id\_zona
+				\item nombre\_tipo
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item id\_zona
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item id\_zona
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item nombre\_tipo
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{HUECO\_COMPONENTE}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item id\_zona
+				\item columna
+				\item altura
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item id\_zona
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{HUECO\_PC}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item id\_zona
+				\item columna
+				\item altura
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item id\_zona
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{UBICACIÓN\_COMPONENTE}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item número\_serie
+				\item id\_zona
+				\item columna
+				\item altura
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item número\_serie
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item número\_serie
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item número\_serie
+				\item id\_zona
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{COMPONENTE}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item número\_serie
+				\item nombre\_subtipo
+				\item número\_suministro
+				\item fecha\_llegada
+				\item descripción
+				\item recibido
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item número\_serie
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item número\_serie
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item nombre\_subtipo
+				\item número\_suministro
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+			\begin{itemize}
+				\item fecha\_llegada
+				\item descripción
+			\end{itemize}
+		
+	\subsection{RESERVA}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item número\_serie
+				\item número\_operario
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item número\_serie
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item número\_serie
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item número\_serie
+				\item número\_operario
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{COMPOSICIÓN\_PC}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item número\_serie
+				\item código\_PC
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item número\_serie
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item número\_serie
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item número\_serie
+				\item código\_PC
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{SUBTIPO\_COMPONENTE}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item nombre\_subtipo
+				\item desciripción
+				\item nombre\_tipo
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item nombre\_subtipo
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item nombre\_subtipo
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item nombre\_tipo
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{TIPO\_COMPONENTE}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item nombre\_tipo
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item nombre\_tipo
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item nombre\_tipo
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{SUMINISTRO}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item número\_suministro
+				\item CUIT\_proveedor
+				\item servido
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item número\_suministro
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item número\_suministro
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item CUIT\_proveedor
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{PROVEEDOR}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item CUIT\_proveedor
+				\item Nombre
+				\item Dirección
+				\item Teléfono
+				\item FAX
+				\item email
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item CUIT\_proveedor
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item CUIT\_proveedor
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+			\begin{itemize}
+				\item Nombre
+				\item Dirección
+				\item Teléfono
+				\item FAX
+				\item email
+			\end{itemize}
+		
+	\subsection{PROVISIÓN}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item nombre\_subtipo
+				\item CUIT\_proveedor
+				\item precio\_unitario
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item (nombre\_subtipo, CUIT\_proveedor)
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item (nombre\_subtipo, CUIT\_proveedor)
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item nombre\_subtipo
+				\item CUIT\_proveedor
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{UBICACIÓN\_PC}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item código\_PC
+				\item id\_zona
+				\item columna
+				\item altura
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item código\_PC
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item código\_PC
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item código\_PC
+				\item id\_zona
+				\item (id\_zona, columna, altura)
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{PEDIDO}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item número\_pedido
+				\item CUIT\_cliente
+				\item fecha\_pedido
+				\item dirección\_entrega
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item número\_pedido
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item número\_pedido
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item CUIT\_cliente
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+			\begin{itemize}
+				\item fecha\_pedido
+				\item dirección\_entrega
+			\end{itemize}
+		
+	\subsection{ITEM\_PEDIDO}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item código\_PC
+				\item número\_pedido
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item código\_PC
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item código\_PC
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+			\begin{itemize}
+				\item número\_pedido			
+				\item código\_PC
+			\end{itemize}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+		
+	\subsection{CLIENTE}
+		\subsubsection*{Atributos}
+			\begin{itemize}
+				\item CUIT
+				\item Nombre
+				\item Dirección
+				\item Teléfono
+				\item FAX
+				\item email
+			\end{itemize}
+		\subsubsection*{Claves candidatas}
+			\begin{itemize}
+				\item CUIT
+			\end{itemize}
+		\subsubsection*{Clave primaria}
+			\begin{itemize}
+				\item CUIT
+			\end{itemize}
+		\subsubsection*{Claves foráneas}
+		\subsubsection*{Atributos que pueden tomar valores nulos}
+			\begin{itemize}
+				\item Nombre
+				\item Dirección
+				\item Teléfono
+				\item FAX
+				\item email
+			\end{itemize}
+	
+	
