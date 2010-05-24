@@ -79,6 +79,7 @@
 	\begin{itemize}
 		\item La entidad Hueco Componente depende existencialmente de la entidad Zona Componente. Esto se debe a que los huecos en donde se almacenarán componentes se encuentran en una zona exclusiva. Si la zona deja de existir los huecos desaparecerán, por lo tanto existe una dependencia existencial. Zona Componente es la entidad dominante y Hueco Componente es la entidad subordinada.
 		\item La entidad Hueco PC depende existencialmente de la entidad Zona PC. Esto se debe a que los huecos en donde se almacenarán las distintas PC's se encuentran en una zona exclusiva. Si la zona deja de existir los huecos desaparecerán, por lo tanto existe una dependencia existencial. Zona PC es la entidad dominante y Hueco PC es la entidad subordinada.
+		\item La entidad Subtipo depende existencialmente de Tipo Componente ya que no tiene sentido almacenar subtipos de tipos que dejen de existir. Tipo Componente es la entidad dominante y Subtipo es la entidad subordinada.
 	\end{itemize}
 	
 	En el modelo hay dependencia de identidad entre las siguientes entidades:
@@ -94,6 +95,9 @@
 		\item Se guarda un solo componente en cada hueco. El tamaño de los huecos no es uniforme.
 		\item Siempre habrá un hueco disponible para un componente.
 		\item Siempre habrá un hueco disponible para una PC.
+		\item El número de serie es único por cada componente, independiente de su tipo y asignado internamente.
+		\item El número de serie es único por cada componente, independiente de su tipo y asignado internamente.
+		\item Cuando se dice que se requiere una breve descripción por cada componente llegado esta se considera opcional, ya que en la mayoría de los casos no habrá nada que acotar sobre cada componente en particular. Si puede existir una descripción del subtipo en general.
 	\end{enumerate}
 	
 	A continuación se presenta una serie de hipótesis acerca de la parte no especificada del sistema.
