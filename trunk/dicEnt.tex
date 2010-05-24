@@ -6,12 +6,12 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ID}: identificador de la zona.}
+				\item{\emph{ID_Zona}: identificador de la zona.}
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
-			El identificador único es \emph{ID}.
+			El identificador único es \emph{ID_Zona}.
 
 		\subsubsection{Zona PC}
 			\paragraph{Definición:} 
@@ -21,12 +21,12 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ID}: identificador de la zona dentro de todas las zonas de PCs.}
+				\item{\emph{ID_Zona}: identificador de la zona dentro de todas las zonas de PCs.}
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
-			El identificador único es \emph{ID}.
+			El identificador único es \emph{ID_Zona}.
 		
 		\subsubsection{Zona Componentes}
 			\paragraph{Definición:} 
@@ -36,12 +36,12 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ID}: identificador de la zona dentro de todas las zonas de Componentes.}
+				\item{\emph{ID_Zona}: identificador de la zona dentro de todas las zonas de Componentes.}
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
-			El identificador único es \emph{ID}.	
+			El identificador único es \emph{ID_Zona}.	
 
 		\subsubsection{Hueco Componente}
 			\paragraph{Definición: } 
@@ -57,7 +57,7 @@
 			
 			\paragraph*{Especificación de identificador único:}
 			
-			El identificador único es \emph{ID}+\emph{Columna}+\emph{Altura}.
+			El identificador único es \emph{ID_Zona}+\emph{Columna}+\emph{Altura}.
 			
 		\subsubsection{Componente}
 			\paragraph{Definición:} 
@@ -70,7 +70,9 @@
 				\item{\emph{ Número de Serie:}} Número que identifica univocamente a un componente.
 				\item{\emph{ Estado:}} Indica si el componente ya se encuentra en manos de la empresa (Recibido) o si ha sido pedido pero todavía no se encuentra a disposición(Pedido). Este atributo es calculable.
 			\end{itemize}
-			
+				\item{\emph{Fecha de llegada:}}Fecha en la que el componente arribó al almacén.
+				\item{\emph{Descripción:}}Características partículares del componente.
+	
 			\paragraph*{Especificación de identificador único:}
 			
 			El identificador único es \emph{Número de Serie}.
@@ -85,12 +87,13 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ Número:}} Número que identifica univocamente a un suministro.
+				\item{\emph{ Número Suministro:}} Número que identifica univocamente a un suministro.
+				\item{\emph{Emitido:}} Indica si el pedido de suministro ya fue impreso.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
-			El identificador único es \emph{Número}.
+			El identificador único es \emph{Número Suministro}.
 
 		\subsubsection{Proveedor}
 			\paragraph{Definición:} 
@@ -120,13 +123,13 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Nombre:} } Nombre del tipo de componente. Por ejemeplo: Placa base, Microprocesador, Memoria RAM, etc.
+				\item{\emph{Nombre Tipo:} } Nombre del tipo de componente. Por ejemeplo: Placa base, Microprocesador, Memoria RAM, etc.
 				\item{\emph{Descripción:} } Breve descripción del tipo de componente.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
-			El identificador único es \emph{Nombre}
+			El identificador único es \emph{Nombre Tipo}
 			
 		\subsubsection{Subtipo}
 			\paragraph{Definición:} 
@@ -136,8 +139,9 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Nombre:}} Nombre del subtipo de compomente. Por ejemplo: Socket 1156 Mini ATX Video OnBoard, Intel i3, etc.
+				\item{\emph{Nombre Subtipo:}} Nombre del subtipo de compomente. Por ejemplo: Socket 1156 Mini ATX Video OnBoard, Intel i3, etc.
 				\item{\emph{Descripcion:}} Breve descripción del subtipo de componente.
+				\item{\emph{Stock Mínimo:}} Mínima existencia de este subtipo de componentes que se desea tener en el almacen sin emitir un aviso de stock bajo.
 				
 			\end{itemize}
 			
@@ -186,12 +190,14 @@
 				\paragraph{Especificación de atributos: \\}
 				
 				\begin{itemize}
-					\item{\emph{Número:}} Número asignado al pedido realizado por el cliente.
+					\item{\emph{Número Pedido:}} Número asignado al pedido realizado por el cliente.
+					\item{\emph{Fecha:}} Fecha en que se realizó el pedido.
+					\item{\emph{Dirección:}} Dirección acordada para la entrega del pedido.
 				\end{itemize}
 				
 				\paragraph*{Especificación de identificador único:}
 				
-				El identificador único es \emph{Número}.
+				El identificador único es \emph{Número Pedido}.
 		
 		\subsubsection{Cliente}
 			\paragraph{Definición:} 
@@ -221,12 +227,12 @@
 				\paragraph{Especificación de atributos: \\}
 				
 				\begin{itemize}
-					\item{\emph{Número:}} Número asignado a una orden de producción.
+					\item{\emph{Número Orden:}} Número asignado a una orden de producción.
 				\end{itemize}
 				
 				\paragraph*{Especificación de identificador único:}
 				
-				El identificador único es \emph{Número}.
+				El identificador único es \emph{Número Orden}.
 		
 		\subsubsection{Operario}
 			\paragraph{Definición:} 
@@ -244,5 +250,20 @@
 				
 				\paragraph*{Especificación de identificador único:}
 				
-				El identificador único es \emph{DNI}.		
+				El identificador único es \emph{DNI}.	
+
+		\subsubsection{Configuración}
+			\paragraph{Definición:} 
+				
+				Tipo de PC que se monta en la empresa.
+				
+				\paragraph{Especificación de atributos: \\}
+				
+				\begin{itemize}
+					\item{\emph{Nombre Configuración}}		
+				\end{itemize}
+				
+				\paragraph*{Especificación de identificador único:}
+				
+				El identificador único es \emph{Nombre Configuración}.	
 			
