@@ -3,7 +3,7 @@
 		\subsubsection{Ubicación Componente}
 			\paragraph{Definición:} 
 				
-				Asociación del componente con el hueco en el que esta guardado
+				Asociación del componente con el hueco en el que esta guardado.
 				
 				\paragraph{Especificación de atributos: \\}
 				
@@ -21,13 +21,13 @@
 		\subsubsection{Ubicación PC}
 			\paragraph{Definición:} 
 				
-				Asociación de la PC con el hueco en el que esta guardado
+				Asociación de la PC con el hueco en el que esta guardado.
 				
 				\paragraph{Especificación de atributos: \\}
 				
 				\begin{itemize}
 					\item{\emph{Código:}} Numero asignado a la PC.
-					\item{\emph{ID}}: identificador de la zona dentro de todas las zonas de Componentes.
+					\item{\emph{ID}}: Identificador de la zona dentro de todas las zonas de Componentes.
 					\item{\emph{Columna:}} Indicador de la columna dentro de la zona.
 					\item{\emph{Altura:}} Indicador de la altura dentro de la zona.
 				\end{itemize}
@@ -36,7 +36,7 @@
 				
 				El identificador único es \emph{Código}.
 		
-		\subsubsection{Reserva para}
+		\subsubsection{Reservado para}
 			\paragraph{Definición:} 
 				
 				Reserva de un Componente hecha para una Orden de Producción.
@@ -55,7 +55,7 @@
 	\subsubsection{Hecho A}
 		\paragraph{Definición:} 
 			
-			Indica que Proveedor realizó un determinado Sumistro
+			Indica que Proveedor realizó un determinado Sumistro.
 			
 			\paragraph{Especificación de atributos: \\}
 			
@@ -76,8 +76,8 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Número de Serie.}}
-				\item{\emph{Número Suministro.}}
+				\item{\emph{Número de Serie:}} Identificador del Componente.
+				\item{\emph{Número Suministro:}} Identificador del Suministro.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -86,14 +86,14 @@
 	
 	\subsubsection{Provisto Por}
 		\paragraph{Definición:} 
-			Relación entre un Subtipo de Componente y un Proveedor que lo provee
+			Relación entre un Subtipo de Componente y un Proveedor que lo provee.
 			
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{CUIT.}}
-				\item{\emph{Nombre Subtipo.}}
+				\item{\emph{CUIT:}} CUIT del Proveedor que provee el Subtipo.
+				\item{\emph{Nombre Subtipo:}} Nombre del Subtipo.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -102,14 +102,14 @@
 
 	\subsubsection{Dividido En}
 		\paragraph{Definición:} 
-			Relación entre un Subtipo y el Tipo de Componente al que pertenece
+			Relación entre un Subtipo y el Tipo de Componente al que pertenece.
 			
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Nombre Tipo}}
-				\item{\emph{Nombre Subtipo}}
+				\item{\emph{Nombre Tipo:}} Nombre del Tipo.
+				\item{\emph{Nombre Subtipo:}} Nombre del Subtipo.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -118,43 +118,28 @@
 
 	\subsubsection{Pertenece A}
 		\paragraph{Definición:} 
-			Relación entre un Componente y el Subtipo al que pertenece
+			Relación entre un Componente y el Subtipo al que pertenece.
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Nombre Subtipo.}}
-				\item{\emph{Numéro de Serie.}}
+				\item{\emph{Nombre Subtipo:}} Nombre del Subtipo.
+				\item{\emph{Numéro de Serie:}} Identificador del Componente.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
 			El identificador único es \emph{Número de Serie}.
 
-	\subsubsection{Subtipo en Zona}
+	\subsubsection{Tipo en Zona}
 		\paragraph{Definición:} 
-			Relación entre una Zona Componente y el Subtipo que se almacena en ella
+			Relación entre una Zona Componente y el Tipo que se almacena en ella.
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ID\_Zona}}
-				\item{\emph{Nombre Subtipo}}
-			\end{itemize}
-			
-			\paragraph*{Especificación de identificador único:}
-			
-			El identificador único es \emph{ID\_Zona}.
-
-	\subsubsection{Subtipo en Zona}
-		\paragraph{Definición:} 
-			Relación entre una Zona Componente y el Subtipo que se almacena en ella
-			
-			\paragraph{Especificación de atributos: \\}
-			
-			\begin{itemize}
-				\item{\emph{ID\_Zona}}
-				\item{\emph{Nombre Subtipo}}
+				\item{\emph{ID\_Zona:}} Identificador de la zona.
+				\item{\emph{Nombre Tipo:}} Nombre del Tipo.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -168,9 +153,9 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ID\_Zona.}}
-				\item{\emph{Columna.}}
-				\item{\emph{Altura.}}
+				\item{\emph{ID\_Zona:}} Identificador de la zona.
+				\item{\emph{Columna:}} Indicador de la columna dentro de la zona.
+				\item{\emph{Altura:}} Indicador de la altura dentro de la zona.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -179,13 +164,13 @@
 
 	\subsubsection{Configuración en Zona}
 		\paragraph{Definición:} 
-			Relación entre una Zona PC y la Configuración que se almacena en ella
+			Relación entre una Zona PC y la Configuración que se almacena en ella.
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ID\_Zona.}}
-				\item{\emph{Nombre Configuración.}}
+				\item{\emph{ID\_Zona:}} Identificador de la Zona.
+				\item{\emph{Nombre Configuración:}} Nombre de la configuración.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -199,9 +184,9 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ID\_Zona.}}
-				\item{\emph{Columna.}}
-				\item{\emph{Altura.}}
+				\item{\emph{ID\_Zona:}} Identificador de la zona.
+				\item{\emph{Columna:}} Indicador de la columna dentro de la zona.
+				\item{\emph{Altura:}} Indicador de la altura dentro de la zona.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -210,44 +195,44 @@
 
 	\subsubsection{Compone}
 		\paragraph{Definición:} 
-			Composición de una Configuración con los Subtipos que la forman
+			Composición de una Configuración con los Subtipos que la forman.
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Nombre Configuración.}}
-				\item{\emph{Nombre Subtipo.}}
+				\item{\emph{Nombre Configuración:}} Nombre de la Configuración.
+				\item{\emph{Nombre Subtipo:}} Nombre del Subtipo.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
 			El identificador único es \emph{Nombre Configuración}+\emph{Nombre Subtipo}.
 
-	\subsubsection{Armada con}
+	\subsubsection{Armada Con}
 		\paragraph{Definición:} 
-			Composición entre una PC y los componentes que la forman
+			Composición entre una PC y los componentes que la forman.
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Código.}}
-				\item{\emph{Número de Serie.}}
+				\item{\emph{Código PC:}} Identificador de una PC específica.
+				\item{\emph{Número de Serie:}} Identificador del Componente.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
 			El identificador único es \emph{Código}+\emph{Número de Serie}.	
 
-	\subsubsection{ Item}
+	\subsubsection{Item}
 		\paragraph{Definición:} 
 			Relación entre una Orden de Producción y una de las Configuraciones que solicita.
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Número Orden.}}
-				\item{\emph{Nombre Configuración.}}
-				\item{\emph{Cantidad.}}
+				\item{\emph{Número Orden:}} Identificador de una Orden de Producción.
+				\item{\emph{Nombre Configuración:}} Nombre de la Configuración.
+				\item{\emph{Cantidad:}} Cantidad de Configuraciones requeridas.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -261,8 +246,8 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Número Orden.}}
-				\item{\emph{DNI.}}
+				\item{\emph{Número Orden:}} Identificador de una Orden de Producción.
+				\item{\emph{DNI:}} Número de DNI del Operario.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -276,23 +261,23 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Código.}}
-				\item{\emph{Nombre Configuración.}}
+				\item{\emph{Código PC:}} Identificador de una PC específica.
+				\item{\emph{Nombre Configuración:}} Nombre de la Configuración.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
 			
 			El identificador único es \emph{Código}.
 
-	\subsubsection{Construdo Según}
+	\subsubsection{Construído Según}
 		\paragraph{Definición:} 
 			Asociación entre uan PC y la Orden de Producción que la encargó.
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Código.}}
-				\item{\emph{Número Orden.}}
+				\item{\emph{Código PC:}} Identificador de una PC específica.
+				\item{\emph{Número Orden:}} Identificador de una Orden de Producción.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -306,8 +291,8 @@
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{ Código.}}
-				\item{\emph{ Número Pedido.}}
+				\item{\emph{Código PC:}} Identificador de una PC específica.
+				\item{\emph{Número Pedido:}} Identificador de un Pedido.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
@@ -316,13 +301,13 @@
 
 	\subsubsection{Hecho Por}
 		\paragraph{Definición:} 
-			Asociación entre un Pedido y el Cliente que lo efectuó 
+			Asociación entre un Pedido y el Cliente que lo efectuó. 
 			
 			\paragraph{Especificación de atributos: \\}
 			
 			\begin{itemize}
-				\item{\emph{Número Pedido.}}
-				\item{\emph{CUIT.}}
+				\item{\emph{Número Pedido:}} Identificador de un Pedido.
+				\item{\emph{CUIT:}} CUIT del Cliente que realizó el Pedido.
 			\end{itemize}
 			
 			\paragraph*{Especificación de identificador único:}
