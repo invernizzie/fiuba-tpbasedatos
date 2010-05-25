@@ -115,7 +115,7 @@
 				\item número\_suministro
 				\item fecha\_llegada
 				\item descripción
-				\item recibido
+				\item estado
 			\end{itemize}
 		\subsubsection*{Claves candidatas}
 			\begin{itemize}
@@ -140,7 +140,7 @@
 		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item número\_serie
-				\item número\_operario
+				\item número\_ordenproduccion
 			\end{itemize}
 		\subsubsection*{Claves candidatas}
 			\begin{itemize}
@@ -153,7 +153,7 @@
 		\subsubsection*{Claves foráneas}
 			\begin{itemize}
 				\item número\_serie
-				\item número\_operario
+				\item número\_ordenproduccion
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
 		
@@ -184,6 +184,7 @@
 				\item nombre\_subtipo
 				\item desciripción
 				\item nombre\_tipo
+				\item stock\_minimo
 			\end{itemize}
 		\subsubsection*{Claves candidatas}
 			\begin{itemize}
@@ -198,6 +199,9 @@
 				\item nombre\_tipo
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			\begin{itemize}
+				\item stock\_minimo
+			\end{itemize}
 		
 	\subsection{TIPO\_COMPONENTE}
 		\subsubsection*{Atributos}
@@ -224,7 +228,7 @@
 			\begin{itemize}
 				\item número\_suministro
 				\item CUIT\_proveedor
-				\item servido
+				\item impreso
 			\end{itemize}
 		\subsubsection*{Claves candidatas}
 			\begin{itemize}
@@ -289,6 +293,9 @@
 				\item CUIT\_proveedor
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			\begin{itemize}
+				\item precio\_unitario
+			\end{itemize}
 		
 	\subsection{UBICACIÓN\_PC}
 		\subsubsection*{Atributos}
