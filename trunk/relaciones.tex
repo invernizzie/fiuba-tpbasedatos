@@ -19,6 +19,7 @@
 				\item nombre\_configuracion
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{ZONA\_COMPONENTE}
 		\subsubsection*{Atributos}
@@ -39,6 +40,7 @@
 				\item nombre\_tipo
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{HUECO\_COMPONENTE}
 		\subsubsection*{Atributos}
@@ -60,6 +62,7 @@
 				\item id\_zona
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{HUECO\_PC}
 		\subsubsection*{Atributos}
@@ -81,6 +84,7 @@
 				\item id\_zona
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{UBICACIÓN\_COMPONENTE}
 		\subsubsection*{Atributos}
@@ -106,6 +110,7 @@
 				\item (id\_zona, columna, altura)
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{COMPONENTE}
 		\subsubsection*{Atributos}
@@ -156,6 +161,7 @@
 				\item número\_ordenproduccion
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{COMPOSICIÓN\_PC}
 		\subsubsection*{Atributos}
@@ -177,12 +183,13 @@
 				\item código\_PC
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{SUBTIPO\_COMPONENTE}
 		\subsubsection*{Atributos}
 			\begin{itemize}
 				\item nombre\_subtipo
-				\item desciripción
+				\item descripción
 				\item nombre\_tipo
 				\item stock\_minimo
 			\end{itemize}
@@ -218,10 +225,12 @@
 				\item nombre\_tipo
 			\end{itemize}
 		\subsubsection*{Claves foráneas}
+			No hay
 		\subsubsection*{Atributos que pueden tomar valores nulos}
 			\begin{itemize}
 				\item descripción
 			\end{itemize}
+			Ninguno
 		
 	\subsection{SUMINISTRO}
 		\subsubsection*{Atributos}
@@ -243,6 +252,7 @@
 				\item CUIT\_proveedor
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{PROVEEDOR}
 		\subsubsection*{Atributos}
@@ -263,6 +273,7 @@
 				\item CUIT\_proveedor
 			\end{itemize}
 		\subsubsection*{Claves foráneas}
+			No hay
 		\subsubsection*{Atributos que pueden tomar valores nulos}
 			\begin{itemize}
 				\item Nombre
@@ -321,6 +332,7 @@
 				\item (id\_zona, columna, altura)
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{PEDIDO}
 		\subsubsection*{Atributos}
@@ -368,11 +380,12 @@
 				\item código\_PC
 			\end{itemize}
 		\subsubsection*{Atributos que pueden tomar valores nulos}
+			Ninguno
 		
 	\subsection{CLIENTE}
 		\subsubsection*{Atributos}
 			\begin{itemize}
-				\item CUIT
+				\item CUIT\_cliente
 				\item Nombre
 				\item Dirección
 				\item Teléfono
@@ -381,13 +394,14 @@
 			\end{itemize}
 		\subsubsection*{Claves candidatas}
 			\begin{itemize}
-				\item CUIT
+				\item CUIT\_cliente
 			\end{itemize}
 		\subsubsection*{Clave primaria}
 			\begin{itemize}
-				\item CUIT
+				\item CUIT\_cliente
 			\end{itemize}
 		\subsubsection*{Claves foráneas}
+			No hay
 		\subsubsection*{Atributos que pueden tomar valores nulos}
 			\begin{itemize}
 				\item Nombre
