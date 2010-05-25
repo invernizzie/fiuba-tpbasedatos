@@ -2,11 +2,11 @@ CREATE
     TABLE Cliente
     (
         CUIT_cliente VARCHAR(15) NOT NULL,
-		nombre VARCHAR(40),
-		direccion VARCHAR(250),
-		telefono VARCHAR(20),
-		fax VARCHAR(20),
-		email VARCHAR(320),
+        nombre VARCHAR(40),
+        direccion VARCHAR(250),
+        telefono VARCHAR(20),
+        fax VARCHAR(20),
+        email VARCHAR(320),
         PRIMARY KEY (CUIT_cliente)
     );
 
@@ -15,19 +15,19 @@ CREATE
     (
         numero_pedido BIGINT NOT NULL,
         CUIT_cliente VARCHAR(15) NOT NULL,
-		fecha_pedido DATE,
-		direccion_entrega VARCHAR(250),
+        fecha_pedido DATE,
+        direccion_entrega VARCHAR(250),
         PRIMARY KEY (numero_pedido),
         CONSTRAINT Cliente_pedido
-			FOREIGN KEY (CUIT_cliente)
-			REFERENCES Cliente (CUIT_cliente)
+            FOREIGN KEY (CUIT_cliente)
+            REFERENCES Cliente (CUIT_cliente)
     );
 
 CREATE
     TABLE Tipo_Componente
     (
         nombre_tipo VARCHAR(40) NOT NULL,
-		descripcion VARCHAR(250),
+        descripcion VARCHAR(250),
         PRIMARY KEY (nombre_tipo)
     );
 
@@ -37,22 +37,22 @@ CREATE
         nombre_subtipo VARCHAR(40) NOT NULL,
         descripcion VARCHAR(250),
         nombre_tipo VARCHAR(40) NOT NULL,
-		stock_minimo INT,
+        stock_minimo INT,
         PRIMARY KEY (nombre_subtipo),
         CONSTRAINT Tipo_Subtipo
-			FOREIGN KEY (nombre_tipo)
-			REFERENCES Tipo_Componente (nombre_tipo)
+            FOREIGN KEY (nombre_tipo)
+            REFERENCES Tipo_Componente (nombre_tipo)
     );
 
 CREATE
     TABLE Proveedor
     (
         CUIT_Proveedor VARCHAR(15) NOT NULL,
-		nombre VARCHAR(40),
-		direccion VARCHAR(250),
-		telefono VARCHAR(20),
-		fax VARCHAR(20),
-		email VARCHAR(320),
+        nombre VARCHAR(40),
+        direccion VARCHAR(250),
+        telefono VARCHAR(20),
+        fax VARCHAR(20),
+        email VARCHAR(320),
         PRIMARY KEY (CUIT_Proveedor)
     );
 
@@ -64,11 +64,11 @@ CREATE
         precio_unitario FLOAT,
         PRIMARY KEY (nombre_subtipo, CUIT_proveedor),
         CONSTRAINT Provision_subtipo
-			FOREIGN KEY (nombre_subtipo)
-			REFERENCES subtipo_componente (nombre_subtipo),
+            FOREIGN KEY (nombre_subtipo)
+            REFERENCES subtipo_componente (nombre_subtipo),
         CONSTRAINT Provision_proveedor
-			FOREIGN KEY (CUIT_proveedor)
-			REFERENCES proveedor (CUIT_Proveedor)
+            FOREIGN KEY (CUIT_proveedor)
+            REFERENCES proveedor (CUIT_Proveedor)
     );
 
 CREATE
@@ -76,11 +76,11 @@ CREATE
     (
         numero_suministro BIGINT NOT NULL,
         CUIT_provedor VARCHAR(15) NOT NULL,
-		impreso BOOLEAN NOT NULL,
+        impreso BOOLEAN NOT NULL,
         PRIMARY KEY (numero_suministro),
         CONSTRAINT Suministro_Proveedor 
-			FOREIGN KEY (CUIT_provedor)
-			REFERENCES proveedor (CUIT_Proveedor)
+            FOREIGN KEY (CUIT_provedor)
+            REFERENCES proveedor (CUIT_Proveedor)
     );
 
 CREATE
@@ -89,16 +89,16 @@ CREATE
         numero_serie BIGINT NOT NULL,
         nombre_subtipo VARCHAR(40) NOT NULL,
         numero_suministro BIGINT NOT NULL,
-		fecha_llegada DATE,
-		descripcion VARCHAR(250),
-		estado CHAR(8) NOT NULL,
+        fecha_llegada DATE,
+        descripcion VARCHAR(250),
+        estado CHAR(8) NOT NULL,
         PRIMARY KEY (numero_serie),
         CONSTRAINT Componente_subtipo
-			FOREIGN KEY (nombre_subtipo)
-			REFERENCES subtipo_componente (nombre_subtipo),
+            FOREIGN KEY (nombre_subtipo)
+            REFERENCES subtipo_componente (nombre_subtipo),
         CONSTRAINT Componente_suministro
-			FOREIGN KEY (numero_suministro)
-			REFERENCES suministro (numero_suministro)
+            FOREIGN KEY (numero_suministro)
+            REFERENCES suministro (numero_suministro)
     );
 
 CREATE
@@ -108,10 +108,10 @@ CREATE
         numero_ordenproduccion BIGINT NOT NULL,
         PRIMARY KEY (numero_serie),
         CONSTRAINT Reserva_Componente
-			FOREIGN KEY (numero_serie)
-			REFERENCES componente (numero_serie)
-		-- Se omite clave foranea hacia Orden de Produccion
-		-- pues no se implementa dicha relacion
+            FOREIGN KEY (numero_serie)
+            REFERENCES componente (numero_serie)
+        -- Se omite clave foranea hacia Orden de Produccion
+        -- pues no se implementa dicha relacion
     );
 
 CREATE
@@ -120,10 +120,10 @@ CREATE
         codigo_PC BIGINT NOT NULL,
         numero_pedido BIGINT NOT NULL,
         CONSTRAINT Item_de_Pedido
-			FOREIGN KEY (numero_pedido)
-			REFERENCES pedido (numero_pedido),
-		-- Se omite clave foranea hacia PC
-		-- pues no se implementa dicha relacion
+            FOREIGN KEY (numero_pedido)
+            REFERENCES pedido (numero_pedido),
+        -- Se omite clave foranea hacia PC
+        -- pues no se implementa dicha relacion
         PRIMARY KEY (codigo_PC)
     );
 
@@ -134,10 +134,10 @@ CREATE
         codigo_pc BIGINT NOT NULL,
         PRIMARY KEY (numero_serie),
         CONSTRAINT PC_Componente
-			FOREIGN KEY (numero_serie)
-			REFERENCES componente (numero_serie)
-		-- Se omite clave foranea hacia PC
-		-- pues no se implementa dicha relacion
+            FOREIGN KEY (numero_serie)
+            REFERENCES componente (numero_serie)
+        -- Se omite clave foranea hacia PC
+        -- pues no se implementa dicha relacion
     );
 
 CREATE
@@ -147,18 +147,18 @@ CREATE
         nombre_tipo VARCHAR(40) NOT NULL,
         PRIMARY KEY (id_zona),
         CONSTRAINT Zona_Tipo_Componente
-			FOREIGN KEY (nombre_tipo)
-			REFERENCES tipo_componente (nombre_tipo)
+            FOREIGN KEY (nombre_tipo)
+            REFERENCES tipo_componente (nombre_tipo)
     );
-	
+    
 CREATE
     TABLE Zona_PC
     (
         id_zona BIGINT NOT NULL,
         nombre_configuracion VARCHAR(20),
         PRIMARY KEY (id_zona)
-		-- Se omite clave foranea hacia Configuracion
-		-- pues no se implementa dicha relacion
+        -- Se omite clave foranea hacia Configuracion
+        -- pues no se implementa dicha relacion
     );
 
 CREATE
@@ -169,8 +169,8 @@ CREATE
         altura BIGINT NOT NULL,
         PRIMARY KEY (id_zona, columna, altura),
         CONSTRAINT HuecoPC_Zona
-			FOREIGN KEY (id_zona)
-			REFERENCES zona_pc (id_zona)
+            FOREIGN KEY (id_zona)
+            REFERENCES zona_pc (id_zona)
     );
 
 CREATE
@@ -181,8 +181,8 @@ CREATE
         altura BIGINT NOT NULL,
         PRIMARY KEY (id_zona, columna, altura),
         CONSTRAINT HuecoComponente_Zona
-			FOREIGN KEY (id_zona)
-			REFERENCES zona_componente (id_zona)
+            FOREIGN KEY (id_zona)
+            REFERENCES zona_componente (id_zona)
     );
 
 CREATE
@@ -194,14 +194,14 @@ CREATE
         altura BIGINT NOT NULL,
         PRIMARY KEY (numero_serie),
         CONSTRAINT UbicacionComponente_Zona
-			FOREIGN KEY (id_zona)
-			REFERENCES zona_componente (id_zona),
+            FOREIGN KEY (id_zona)
+            REFERENCES zona_componente (id_zona),
         CONSTRAINT UbicacionComponente_Hueco
-			FOREIGN KEY (id_zona, columna, altura)
-			REFERENCES hueco_componente (id_zona, columna, altura),
+            FOREIGN KEY (id_zona, columna, altura)
+            REFERENCES hueco_componente (id_zona, columna, altura),
         CONSTRAINT UbicacionComponente_Componente
-			FOREIGN KEY (numero_serie)
-			REFERENCES componente (numero_serie)
+            FOREIGN KEY (numero_serie)
+            REFERENCES componente (numero_serie)
     );
 
 CREATE
@@ -213,11 +213,11 @@ CREATE
         altura BIGINT NOT NULL,
         PRIMARY KEY (codigo_PC),
         CONSTRAINT UbicacionPC_Zona
-			FOREIGN KEY (id_zona)
-			REFERENCES zona_pc (id_zona),
+            FOREIGN KEY (id_zona)
+            REFERENCES zona_pc (id_zona),
         CONSTRAINT UbicacionPC_Hueco
-			FOREIGN KEY (id_zona, columna, altura)
-			REFERENCES hueco_pc (id_zona, columna, altura)
-		-- Se omite clave foranea hacia PC
-		-- pues no se implementa dicha relacion
+            FOREIGN KEY (id_zona, columna, altura)
+            REFERENCES hueco_pc (id_zona, columna, altura)
+        -- Se omite clave foranea hacia PC
+        -- pues no se implementa dicha relacion
     );
