@@ -1,0 +1,155 @@
+\documentclass[12pt,a4paper,spanish]{article} 
+\usepackage{babel}
+\usepackage [T1]{fontenc}
+\usepackage [latin1]{inputenc}
+\usepackage{graphicx} 
+\usepackage{verbatim}
+\usepackage{array}
+	  \oddsidemargin 0in
+      \textwidth 6.75in
+      \topmargin 0in
+      \textheight 10.0in
+      \parindent 0em
+      \parskip 2ex
+\usepackage{anysize}
+\marginsize{3cm}{2cm}{1.0cm}{1.0cm}
+
+\pagestyle{plain}
+
+\begin{document} 
+\title{
+\begin{table}[!h]
+	\begin{tabular}{m{2cm}m{15cm}}
+		\multicolumn{1}{l}{}
+		 \includegraphics[scale=0.5, bb=0 0 0 0]{logo-fiuba.PNG} & 
+		 \begin{center}
+		 	\begin{LARGE}
+				Universidad de Buenos Aires	\linebreak \linebreak		 							Facultad de Ingenier\'{i}a  \linebreak \linebreak
+				7515 - Base de Datos \linebreak \linebreak
+				1er. Cuatrimestre de 2010
+			\end{LARGE}
+		 \end{center}\\
+\end{tabular}
+\end{table}
+\begin{Large}
+ \begin{center}
+		\underline{TP Base de Datos: SIGeek} \linebreak \linebreak
+        Docente a cargo: Ing. Lucas Roman
+\end{center}
+\end{Large}
+}
+\date{}
+\maketitle
+
+\thispagestyle{empty}
+\author{
+\begin{Large}
+\begin{center}
+		\underline{Integrantes}  \linebreak 
+\end{center}
+\end{Large}
+\begin{center}
+	\begin{tabular}{|| c | c | c ||}
+		\hline
+		\begin{large}Apellido y Nombre\end{large} & 
+		\begin{large}Padr\'{o}n Nro.\end{large} & 
+		\begin{large}E-mail\end{large}\\
+		\hline
+		Bruno Tomás & 88.449 & tbruno88@gmail.com\\
+		\hline
+		Invernizzi Esteban Ignacio & 88.817 & invernizzie@gmail.com\\
+		\hline
+		Meller Gustavo Ariel  & 88.435 & gmeller@gmail.com\\
+		\hline
+		Rivero Hern\'an Javier & 88.455 & riverohernanj@gmail.com\\
+		\hline
+	\end{tabular}
+\end{center}
+}
+
+\newpage
+\setcounter{page}{1} 
+\tableofcontents
+\newpage
+
+\section{Introducción}
+
+	Esta segunda entrega consta de la resolución y la expresión en lenguaje SQL de once consultas, contra un esquema relacional propuesto por la cátedra. Las sentencias y cláusulas a utilizar fueron restringidas a las presentadas por la cátedra en la cartilla del apunte del lenguaje SQL.
+
+\section{Consultas y resolución}
+	
+	\begin{itemize}
+	
+		\item[Consulta 1] El promedio de mothers pedidas por pedido.\\
+		\begin{verbatim}
+Select sum(CANT_PEDIDA) / (count(distinct PEDIDO.NRO_PEDIDO) * count(distinct PEDIDO.NRO_PEDIDO))
+From PEDIDO, ITEM_PEDIDO, SUBTIPO_COMPONENTE
+Where ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
+  And TIPO = 'MOTHER'
+		\end{verbatim}
+		
+		\item[Consulta 2] La razón social de los proveedores tales que existe un producto
+que no comercializan.\\
+		\begin{verbatim}
+Select RAZON_SOCIAL
+From PROVEEDOR pr1
+Where exists (Select * From TIPO_COMPONENTE
+              Where not exists (Select * From CATALOGO_PROVEEDOR, SUBTIPO_COMPONENTE
+                                Where CATALOGO_PROVEEDOR.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
+                                  And pr1.CUIT = CATALOGO_PROVEEDOR.CUIT
+                                  And SUBTIPO_COMPONENTE.TIPO = TIPO_COMPONENTE.TIPO) )
+		\end{verbatim}
+		
+		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon_social de los proveedores que los comercializan.\\
+		\begin{verbatim}
+		\end{verbatim}
+		
+		\item[Consulta 4] La razon_social de los proveedores que comercializan todos los subtipos de componentes a reponer.
+		\begin{verbatim}
+		\end{verbatim}
+		
+		\item[Consulta 5] La razon_social, el nro_pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
+		\begin{verbatim}
+		\end{verbatim}
+		
+		\item[Consulta 6] La razon_social de los proveedores que comercializan exclusivamente un tipo de componente.
+		\begin{verbatim}
+		\end{verbatim}
+
+		\item[Consulta 7] El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
+		\begin{verbatim}
+		\end{verbatim}
+		
+		\item[Consulta 8] El subtipo de los componentes para los cuales el stock informado es distinto del real.
+		\begin{verbatim}
+		\end{verbatim}
+		
+		\item[Consulta 9] El nro_pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.
+		\begin{verbatim}
+		\end{verbatim}
+		
+		\item[Consulta 10] Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
+		\begin{verbatim}
+		\end{verbatim}
+		
+		\item[Consulta 11] El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.
+		\begin{verbatim}
+		\end{verbatim}
+		
+	\end{itemize}
+
+     7. El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
+
+      8. El subtipo de los componentes para los cuales el stock informado es distinto del real.
+
+      9. El nro_pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad
+
+           pedida promedio de ese subtipo de componentes.
+
+    10. Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
+
+    11. El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de
+
+          componentes.
+
+\end{document}
