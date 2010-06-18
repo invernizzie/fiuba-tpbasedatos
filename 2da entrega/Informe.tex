@@ -20,8 +20,8 @@
 \title{
 \begin{table}[!h]
 	\begin{tabular}{m{2cm}m{15cm}}
-		\multicolumn{1}{l}{}
-		 \includegraphics[scale=0.5, bb=0 0 0 0]{logo-fiuba.PNG} & 
+		\multicolumn{1}{l}{} &
+		% \includegraphics[scale=0.5, bb=0 0 0 0]{logo-fiuba.PNG} & 
 		 \begin{center}
 		 	\begin{LARGE}
 				Universidad de Buenos Aires	\linebreak \linebreak		 							Facultad de Ingenier\'{i}a  \linebreak \linebreak
@@ -100,32 +100,90 @@ Where exists (Select * From TIPO_COMPONENTE
                                   And SUBTIPO_COMPONENTE.TIPO = TIPO_COMPONENTE.TIPO) )
 		\end{verbatim}
 		
-		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon_social de los proveedores que los comercializan.\\
+		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.\\
 		\begin{verbatim}
 		\end{verbatim}
 		
-		\item[Consulta 4] La razon_social de los proveedores que comercializan todos los subtipos de componentes a reponer.
+		\item[Consulta 4] La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.
 		\begin{verbatim}
 		\end{verbatim}
 		
-		\item[Consulta 5] La razon_social, el nro_pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
+		\item[Consulta 5] La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
 		\begin{verbatim}
 		\end{verbatim}
 		
-		\item[Consulta 6] La razon_social de los proveedores que comercializan exclusivamente un tipo de componente.
+		\item[Consulta 6] La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.
 		\begin{verbatim}
 		\end{verbatim}
 
 		\item[Consulta 7] El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
+				Si lo que pregunta es sobre si los subtipos que puede pedir entonces:
+	
 		\begin{verbatim}
-		\end{verbatim}
+SELECT sub.subtipo
+FROM  subtipo_componente sub
+WHERE sub.subtipo in 
+					( 	SELECT sub.subtipo
+						FROM subtipo_componente sub, catalogo_proveedor cat, proveedor prov
+						WHERE sub.subtipo=cat.subtipo and cat.cuit=prov.cuit and prov.razon_social='Ceven S.A.'
+					)
+			  and
+	 sub.subtipo not in
+					( 	SELECT sub.subtipo
+						FROM subtipo_componente sub, catalogo_proveedor cat, proveedor prov
+						WHERE sub.subtipo=cat.subtipo and cat.cuit=prov.cuit and not prov.razon_social='Ceven S.A'
+					)
 		
+Si lo que pregunta es sobre lo que efectivamente se pidio, entonces:
+		\end{verbatim}
+		\begin{verbatim}		
+SELECT sub.subtipo
+FROM  subtipo_componente sub
+WHERE sub.subtipo in 
+					( 	SELECT sub.subtipo
+						FROM subtipo_componente sub,  proveedor prov, pedido ped, item_pedido item
+						WHERE sub.subtipo=item.subtipo 
+							and ped.nro_pedido=item.nro_pedido 
+							and ped.cuit=prov.cuit 
+							and prov.razon_social='Ceven S.A.'
+					)
+			  and
+	 sub.subtipo not in
+					( 	SELECT sub.subtipo
+						FROM subtipo_componente sub,  proveedor prov, pedido ped, item_pedido item
+						WHERE sub.subtipo=item.subtipo 
+							and ped.nro_pedido=item.nro_pedido 
+							and ped.cuit=prov.cuit 
+							and not prov.razon_social='Ceven S.A.'
+					)		
+		\end{verbatim}
 		\item[Consulta 8] El subtipo de los componentes para los cuales el stock informado es distinto del real.
+		
+		Hipotesis: los componentes que existen, no son utilizados en pcs y no estan reservadas para ordenes, forman parte del stock.
+		
 		\begin{verbatim}
+
+SELECT sub.subtipo
+FROM subtipo_componente sub
+WHERE not sub.cant_stock=(
+						SELECT count(*)
+						FROM componente comp
+						WHERE sub.subtipo=comp.subtipo
+								and  comp.codigo_pc IS NULL
+								and  comp.nro_orden IS NULL				
+						)
+						
 		\end{verbatim}
 		
-		\item[Consulta 9] El nro_pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.
+		\item[Consulta 9] El nro$\_$pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.
 		\begin{verbatim}
+SELECT item.nro_pedido, item.subtipo
+FROM item_pedido item
+WHERE item.cant_pedida>( 
+					SELECT avg(item2.cant_pedida)
+					FROM item_pedido item2
+					WHERE item2.subtipo=item.subtipo
+				   )
 		\end{verbatim}
 		
 		\item[Consulta 10] Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
@@ -138,18 +196,6 @@ Where exists (Select * From TIPO_COMPONENTE
 		
 	\end{itemize}
 
-     7. El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
-
-      8. El subtipo de los componentes para los cuales el stock informado es distinto del real.
-
-      9. El nro_pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad
-
-           pedida promedio de ese subtipo de componentes.
-
-    10. Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
-
-    11. El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de
-
-          componentes.
+   
 
 \end{document}
