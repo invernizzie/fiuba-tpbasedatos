@@ -113,8 +113,23 @@ Where exists (Select * From TIPO_COMPONENTE
 		\end{verbatim}
 		
 		\item[Consulta 6] La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.
+		Lo que entiendo: La razon social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
 		\begin{verbatim}
+select P.RAZON_SOCIAL
+from PROVEEDOR P, CATALOGO_PROVEEDOR CP, SUBTIPO_COMPONENTE S
+where P.CUIT = CP.CUIT
+and CP.SUBTIPO = S.SUBTIPO
+and not exists(
+				select *
+				from PROVEEDOR P2, CATALOGO_PROVEEDOR CP2, SUBTIPO_COMPONENTE S2
+				where P2.CUIT = CP2.CUIT
+				and CP2.SUBTIPO = S2.SUBTIPO
+				and P.CUIT <> P2.CUIT
+				and S.TIPO = S2.TIPO)
 		\end{verbatim}
+		Resultado:
+		RAZON_SOCIAL
+		Distecna S.A.		
 
 		\item[Consulta 7] El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
 				Si lo que pregunta es sobre si los subtipos que puede pedir entonces:
@@ -187,8 +202,28 @@ WHERE item.cant_pedida>(
 		\end{verbatim}
 		
 		\item[Consulta 10] Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
+		Lo que entiendo: por cada tipo de componente que haya tengo que mostrar el subtipo que tenga la mayor cantidad recibida.
+		Busco para cada tipo el maximo recibido y despues lo uso como una tabla para buscar el subtipo que tenga esa cantidad.
 		\begin{verbatim}
+select T.TIPO, S.SUBTIPO
+from TIPO_COMPONENTE T, SUBTIPO_COMPONENTE S, ITEM_PEDIDO I, (	select T2.TIPO, max(I2.CANT_RECIBIDA) MAX_CANT
+								from TIPO_COMPONENTE T2, SUBTIPO_COMPONENTE S2, ITEM_PEDIDO I2
+								where T2.TIPO = S2.TIPO
+								and S2.SUBTIPO = I2.SUBTIPO
+								group by T2.TIPO) C
+where T.TIPO = S.TIPO
+and C.TIPO = T.TIPO
+and I.SUBTIPO = S.SUBTIPO
+and I.CANT_RECIBIDA = C.MAX_CANT		
 		\end{verbatim}
+		Resultado
+		TIPO	SUBTIPO
+		MOTHER	GIGABYTE GA-H55M-UD2H
+		DVD-RW	SAMSUNG 58X SATAII
+		PLACAS VIDEO	XFX ATI 5700 1GB DDR5
+		MEMORIA RAM	KINGSTON DD3 1066 1GB
+		HDD	WD WD5001AALS
+		CPU	INTEL I5-540M
 		
 		\item[Consulta 11] El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.
 		\begin{verbatim}
