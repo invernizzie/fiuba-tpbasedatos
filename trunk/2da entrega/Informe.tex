@@ -253,6 +253,24 @@ and I.CANT_RECIBIDA = C.MAX_CANT
 		
 		\item[Consulta 11] El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.
 		\begin{verbatim}
+		
+		SELECT SUBTIPO
+		FROM SUBTIPO_COMPONENTE S1
+		WHERE NOT EXISTS(
+			SELECT 'PROVEDOR DE TODOS LOS TIPOS QUE NO LO ENTREGA'
+			FROM PROVEEDOR P
+			WHERE NOT EXISTS(
+				SELECT 'TIPO NO ENTREGADO'
+				FROM TIPO_COMPONENTE T
+				WHERE NOT EXISTS (
+					SELECT 'TIPO EN CATALOGO'
+					FROM SUBTIPO_COMPONENTE S2, CATALOGO_PROVEEDOR C1
+					WHERE S2.TIPO = T.TIPO AND C1.CUIT = P.CUIT AND C1.SUBTIPO =S2.SUBTIPO))
+				AND P.CUIT NOT IN (
+					SELECT C2.CUIT
+					FROM CATALOGO_PROVEEDOR C2
+					WHERE S1.SUBTIPO = C2.SUBTIPO))
+
 		\end{verbatim}
 		
 	\end{itemize}
