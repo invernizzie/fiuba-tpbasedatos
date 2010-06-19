@@ -102,14 +102,40 @@ Where exists (Select * From TIPO_COMPONENTE
 		
 		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.\\
 		\begin{verbatim}
+		
+		SELECT TIPO,  S.SUBTIPO, RAZON_SOCIAL
+		FROM SUBTIPO_COMPONENTE S, CATALOGO_PROVEEDOR C, PROVEEDOR P
+		WHERE S.SUBTIPO = C.SUBTIPO AND C.CUIT = P. CUIT AND CANT_STOCK < CANT_MINIMA
+		ORDER BY TIPO, SUBTIPO
+
 		\end{verbatim}
 		
 		\item[Consulta 4] La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.
 		\begin{verbatim}
+		
+		SELECT RAZON_SOCIAL
+		FROM PROVEEDOR P
+		WHERE NOT EXISTS (
+			SELECT 'SUBTIPO A REPONER NO COMECIALIZADO'
+			FROM SUBTIPO_COMPONENTE S	
+			WHERE CANT_STOCK < CANT_MINIMA AND NOT EXISTS(
+				SELECT 'SUBTIPO EN CATALOGO'
+				FROM CATALOGO_PROVEEDOR C
+				WHERE P.CUIT = C.CUIT AND S.SUBTIPO = C.SUBTIPO))
+
 		\end{verbatim}
 		
 		\item[Consulta 5] La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
 		\begin{verbatim}
+		
+		SELECT RAZON_SOCIAL, PE.NRO_PEDIDO, SUBTIPO
+		FROM PROVEEDOR PR, PEDIDO PE, ITEM_PEDIDO I
+		WHERE PR.CUIT = PE.CUIT AND PE.NRO_PEDIDO = I.NRO_PEDIDO
+		AND I.SUBTIPO NOT IN (
+			SELECT SUBTIPO
+			FROM CATALOGO_PROVEEDOR C
+			WHERE C.CUIT = PR. CUIT) 
+
 		\end{verbatim}
 		
 		\item[Consulta 6] La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.
