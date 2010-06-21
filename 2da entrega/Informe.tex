@@ -14,6 +14,12 @@
 \usepackage{anysize}
 \marginsize{3cm}{2cm}{1.0cm}{1.0cm}
 
+\usepackage{moreverb}
+
+
+
+
+
 \pagestyle{plain}
 
 \begin{document} 
@@ -82,29 +88,34 @@
 	
 		\item[Consulta 1] El promedio de mothers pedidas por pedido.\\
 		
-		\begin{verbatim}
+		\small
+		\begin{verbatimtab}
 
-		SELECT sum(CANT_PEDIDA) / (count(distinct PEDIDO.NRO_PEDIDO) * count(distinct PEDIDO.NRO_PEDIDO)) PROMEDIO
-		FROM PEDIDO, ITEM_PEDIDO, SUBTIPO_COMPONENTE
-		WHERE ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
+SELECT sum(CANT_PEDIDA) / (count(distinct PEDIDO.NRO_PEDIDO) 
+				* count(distinct PEDIDO.NRO_PEDIDO)) PROMEDIO
+FROM PEDIDO, ITEM_PEDIDO, SUBTIPO_COMPONENTE
+WHERE 	ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
 		AND TIPO = 'MOTHER'
 
-  		\end{verbatim}
+  		\end{verbatimtab}
+		\normalsize
 
 		Hipótesis: Hay pedido de mothers.		
 
-		\begin{verbatim}		
+		\small
+		\begin{verbatimtab}		
 
-		SELECT SUM(CANT_PEDIDA) / COUNT ( DISTINCT NRO_PEDIDO) PROMEDIO
-		FROM (	
-			SELECT NRO_PEDIDO, SUBTIPO ,CANT_PEDIDA
-			FROM ITEM_PEDIDO
-			UNION (
-					SELECT NRO_PEDIDO, I.SUBTIPO,  -CANT_PEDIDA
-					FROM ITEM_PEDIDO I, SUBTIPO_COMPONENTE S
-					WHERE I.SUBTIPO = S.SUBTIPO AND TIPO <> 'MOTHER'))
+SELECT SUM(CANT_PEDIDA) / COUNT ( DISTINCT NRO_PEDIDO) PROMEDIO
+FROM (	
+	SELECT NRO_PEDIDO, SUBTIPO ,CANT_PEDIDA
+	FROM ITEM_PEDIDO
+	UNION (
+			SELECT NRO_PEDIDO, I.SUBTIPO,  -CANT_PEDIDA
+			FROM ITEM_PEDIDO I, SUBTIPO_COMPONENTE S
+			WHERE I.SUBTIPO = S.SUBTIPO AND TIPO <> 'MOTHER'))
 					
-		\end{verbatim}
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}
 		PROMEDIO
@@ -113,43 +124,47 @@
 		\item[Consulta 2] La razón social de los proveedores tales que existe un producto
 que no comercializan.\\
 		
-		\begin{verbatim}
+		\small
+		\begin{verbatimtab}
 
-		SELECT RAZON_SOCIAL
-		FROM PROVEEDOR pr1
-		WHERE EXISTS (	
+SELECT RAZON_SOCIAL
+FROM PROVEEDOR pr1
+WHERE EXISTS (	
+	SELECT * 
+	FROM TIPO_COMPONENTE
+	WHERE NOT EXISTS(
 		SELECT * 
-		FROM TIPO_COMPONENTE
-		WHERE NOT EXISTS(
-			SELECT * 
-		    FROM CATALOGO_PROVEEDOR, SUBTIPO_COMPONENTE
-    	    WHERE CATALOGO_PROVEEDOR.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
-        	AND pr1.CUIT = CATALOGO_PROVEEDOR.CUIT
-	       	AND SUBTIPO_COMPONENTE.TIPO = TIPO_COMPONENTE.TIPO) )
+		FROM CATALOGO_PROVEEDOR, SUBTIPO_COMPONENTE
+		WHERE CATALOGO_PROVEEDOR.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
+		AND pr1.CUIT = CATALOGO_PROVEEDOR.CUIT
+		AND SUBTIPO_COMPONENTE.TIPO = TIPO_COMPONENTE.TIPO))
 		
-		\end{verbatim}
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}	   
-		RAZON_SOCIAL
+		RAZON$\_$SOCIAL
 		Intcomex Argentina S.A.
 		Ceven S.A.
 		Solution Box S.R.L.
 		
 		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.\\
 		
-		\begin{verbatim}
-
-		SELECT TIPO,  S.SUBTIPO, RAZON_SOCIAL
-		FROM SUBTIPO_COMPONENTE S, CATALOGO_PROVEEDOR C, PROVEEDOR P
-		WHERE S.SUBTIPO = C.SUBTIPO 
+		\small
+		\begin{verbatimtab}
+	
+SELECT TIPO,  S.SUBTIPO, RAZON_SOCIAL
+FROM SUBTIPO_COMPONENTE S, CATALOGO_PROVEEDOR C, PROVEEDOR P
+WHERE 	S.SUBTIPO = C.SUBTIPO 
 		AND C.CUIT = P. CUIT 
 		AND CANT_STOCK < CANT_MINIMA
-		ORDER BY TIPO, SUBTIPO
+ORDER BY TIPO, SUBTIPO
 
-		\end{verbatim}
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}	   
-		TIPO	SUBTIPO	RAZON_SOCIAL
+		TIPO	SUBTIPO	RAZON$\_$SOCIAL
 		HDD	WD WD1001FALS	Distecna S.A.
 		HDD	WD WD1001FALS	Ceven S.A.
 		HDD	WD WD2001FASS	Distecna S.A.
@@ -165,42 +180,48 @@ que no comercializan.\\
 		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Intcomex Argentina S.A.
 		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Distecna S.A.
 		
+			
 		\item[Consulta 4] La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.
-		\begin{verbatim}
 		
-		SELECT RAZON_SOCIAL
-		FROM PROVEEDOR P
-		WHERE NOT EXISTS (
-			SELECT 'SUBTIPO A REPONER NO COMECIALIZADO'
-			FROM SUBTIPO_COMPONENTE S	
-			WHERE CANT_STOCK < CANT_MINIMA 
-			AND NOT EXISTS(
-				SELECT 'SUBTIPO EN CATALOGO'
-				FROM CATALOGO_PROVEEDOR C
-				WHERE P.CUIT = C.CUIT AND S.SUBTIPO = C.SUBTIPO))
+		\small
+		\begin{verbatimtab}
+			
+SELECT RAZON_SOCIAL
+FROM PROVEEDOR P
+WHERE NOT EXISTS (
+	SELECT 'SUBTIPO A REPONER NO COMECIALIZADO'
+	FROM SUBTIPO_COMPONENTE S	
+	WHERE CANT_STOCK < CANT_MINIMA 
+	AND NOT EXISTS(
+		SELECT 'SUBTIPO EN CATALOGO'
+		FROM CATALOGO_PROVEEDOR C
+		WHERE P.CUIT = C.CUIT AND S.SUBTIPO = C.SUBTIPO))
 
-		\end{verbatim}
-		
+		\end{verbatimtab}
+		\normalsize
+			
 		\paragraph{Resultado}   
-		RAZON_SOCIAL
+		RAZON$\_$SOCIAL
 		Distecna S.A.
 		
 		\item[Consulta 5] La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
 		
 		Interpretación: Obtener los pedidos a proveedores que contienen un item pedido que ese proveedor no comercializa.
 		
-		\begin{verbatim}
+		\small
+		\begin{verbatimtab}
 		
-		SELECT RAZON_SOCIAL, PE.NRO_PEDIDO, SUBTIPO
-		FROM PROVEEDOR PR, PEDIDO PE, ITEM_PEDIDO I
-		WHERE PR.CUIT = PE.CUIT 
+SELECT RAZON_SOCIAL, PE.NRO_PEDIDO, SUBTIPO
+FROM PROVEEDOR PR, PEDIDO PE, ITEM_PEDIDO I
+WHERE 	PR.CUIT = PE.CUIT 
 		AND PE.NRO_PEDIDO = I.NRO_PEDIDO
 		AND I.SUBTIPO NOT IN (
 			SELECT SUBTIPO
 			FROM CATALOGO_PROVEEDOR C
 			WHERE C.CUIT = PR. CUIT) 
 
-		\end{verbatim}
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}
 		Vacío.
@@ -209,71 +230,75 @@ que no comercializan.\\
 		
 		Interpretación: La razón social de los proveedores que proveen un solo tipo de componente.
 		
-		\begin{verbatim}
-		SELECT DISTINCT RAZON_SOCIAL
-		FROM PROVEEDOR P, CATALOGO_PROVEEDOR C1, SUBTIPO_COMPONENTE S1
-		WHERE P.CUIT = C1.CUIT  
-		AND S1.SUBTIPO = C1.SUBTIPO
-		AND NOT EXISTS (
-			SELECT 'OTRO TIPO PROVISTO'
-			FROM CATALOGO_PROVEEDOR C2, SUBTIPO_COMPONENTE S2
-			WHERE C2.SUBTIPO = S2.SUBTIPO 
-			AND C1.CUIT = C2.CUIT 
-			AND S1.TIPO <> S2.TIPO)
-		\end{verbatim}
+		\small
+		\begin{verbatimtab}
+SELECT DISTINCT RAZON_SOCIAL
+FROM PROVEEDOR P, CATALOGO_PROVEEDOR C1, SUBTIPO_COMPONENTE S1
+WHERE P.CUIT = C1.CUIT  
+AND S1.SUBTIPO = C1.SUBTIPO
+AND NOT EXISTS (
+	SELECT 'OTRO TIPO PROVISTO'
+	FROM CATALOGO_PROVEEDOR C2, SUBTIPO_COMPONENTE S2
+	WHERE C2.SUBTIPO = S2.SUBTIPO 
+	AND C1.CUIT = C2.CUIT 
+	AND S1.TIPO <> S2.TIPO)
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}
-		RAZON_SOCIAL
+		RAZON$\_$SOCIAL
 		Solution Box S.R.L.
 		
 		Interpretación: La razón social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
 		
-		\begin{verbatim}
-	
-		SELECT P.RAZON_SOCIAL
-		FROM PROVEEDOR P, CATALOGO_PROVEEDOR CP, SUBTIPO_COMPONENTE S
-		WHERE P.CUIT = CP.CUIT
-		AND CP.SUBTIPO = S.SUBTIPO
-		AND NOT EXISTS(
-				SELECT *
-				FROM PROVEEDOR P2, CATALOGO_PROVEEDOR CP2, SUBTIPO_COMPONENTE S2
-				WHERE P2.CUIT = CP2.CUIT
-				AND CP2.SUBTIPO = S2.SUBTIPO
-				AND P.CUIT <> P2.CUIT
-				AND S.TIPO = S2.TIPO)
-		
-		\end{verbatim}
+		\small
+		\begin{verbatimtab}	
+SELECT P.RAZON_SOCIAL
+FROM PROVEEDOR P, CATALOGO_PROVEEDOR CP, SUBTIPO_COMPONENTE S
+WHERE P.CUIT = CP.CUIT
+AND CP.SUBTIPO = S.SUBTIPO
+AND NOT EXISTS(
+	SELECT *
+	FROM PROVEEDOR P2, CATALOGO_PROVEEDOR CP2, SUBTIPO_COMPONENTE S2
+	WHERE P2.CUIT = CP2.CUIT
+	AND CP2.SUBTIPO = S2.SUBTIPO
+	AND P.CUIT <> P2.CUIT
+	AND S.TIPO = S2.TIPO)	
+		\end{verbatimtab}
+		\normalsize
 
 		\paragraph{Resultado}
-		RAZON_SOCIAL
+		RAZON$\_$SOCIAL
 		Distecna S.A.		
 
 		\item[Consulta 7] El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
 		
-		Hipótesis: Lo entregado se encuentra en ITEM_PEDIDO y tiene cantidad recibida mayor a cero.
+		Hipótesis: Lo entregado se encuentra en ITEM$\_$PEDIDO y tiene cantidad recibida mayor a cero.
 		
-		\begin{verbatim}		
+		\small
+		\begin{verbatimtab}		
 		
-		SELECT SUBTIPO
-		FROM SUBTIPO_COMPONENTE S
-		WHERE EXISTS (
-			SELECT 'ENTREGA DE CEVEN S.A.'
-			FROM ITEM_PEDIDO I1, PEDIDO PE1, PROVEEDOR PR1
-			WHERE S.SUBTIPO = I1.SUBTIPO 
-			AND PE1.NRO_PEDIDO = I1.NRO_PEDIDO 
-			AND PR1.CUIT = PE1.CUIT
-			AND CANT_RECIBIDA > 0 
-			AND RAZON_SOCIAL='Ceven S.A.')
-		AND NOT EXISTS (
-			SELECT 'ENTREGA DE CEVEN S.A.'
-			FROM ITEM_PEDIDO I2, PEDIDO PE2, PROVEEDOR PR2
-			WHERE S.SUBTIPO = I2.SUBTIPO 
-			AND PE2.NRO_PEDIDO = I2.NRO_PEDIDO 
-			AND PR2.CUIT = PE2.CUIT
-			AND CANT_RECIBIDA > 0 
-			AND RAZON_SOCIAL<>'Ceven S.A.')
-		
-		\end{verbatim}
+SELECT SUBTIPO
+FROM SUBTIPO_COMPONENTE S
+WHERE EXISTS (
+	SELECT 'ENTREGA DE CEVEN S.A.'
+	FROM ITEM_PEDIDO I1, PEDIDO PE1, PROVEEDOR PR1
+	WHERE S.SUBTIPO = I1.SUBTIPO 
+	AND PE1.NRO_PEDIDO = I1.NRO_PEDIDO 
+	AND PR1.CUIT = PE1.CUIT
+	AND CANT_RECIBIDA > 0 
+	AND RAZON_SOCIAL='Ceven S.A.')
+AND NOT EXISTS (
+	SELECT 'ENTREGA DE CEVEN S.A.'
+	FROM ITEM_PEDIDO I2, PEDIDO PE2, PROVEEDOR PR2
+	WHERE S.SUBTIPO = I2.SUBTIPO 
+	AND PE2.NRO_PEDIDO = I2.NRO_PEDIDO 
+	AND PR2.CUIT = PE2.CUIT
+	AND CANT_RECIBIDA > 0 
+	AND RAZON_SOCIAL<>'Ceven S.A.')
+					
+		\end{verbatimtab}
+		\normalsize
 
 		\paragraph{Resultado}
 		SUBTIPO
@@ -289,18 +314,20 @@ que no comercializan.\\
 		
 		Hipotesis: los componentes que existen, no son utilizados en pcs y no estan reservadas para ordenes, forman parte del stock.
 		
-		\begin{verbatim}
+		\small
+		\begin{verbatimtab}
 
-		SELECT SUB.SUBTIPO
-		FROM SUBTIPO_COMPONENTE SUB
-		WHERE NOT SUB.CANT_STOCK=(
-			SELECT count(*)
-			FROM COMPONENTE COMP
-			WHERE SUB.SUBTIPO=COMP.SUBTIPO
-			and  COMP.CODIGO_PC IS NULL
-			and  COMP.NRO_ORDEN IS NULL)
+SELECT SUB.SUBTIPO
+FROM SUBTIPO_COMPONENTE SUB
+WHERE NOT SUB.CANT_STOCK=(
+	SELECT count(*)
+	FROM COMPONENTE COMP
+	WHERE SUB.SUBTIPO=COMP.SUBTIPO
+	and  COMP.CODIGO_PC IS NULL
+	and  COMP.NRO_ORDEN IS NULL)
 						
-		\end{verbatim}
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}
 		SUBTIPO
@@ -315,19 +342,19 @@ que no comercializan.\\
 		
 		\item[Consulta 9] El nro$\_$pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.
 		
-		\begin{verbatim}
-		
-		SELECT ITEM.NRO_PEDIDO, ITEM.SUBTIPO
-		FROM ITEM_PEDIDO ITEM
-		WHERE ITEM.CANT_PEDIDA>( 
-			SELECT avg(ITEM2.CANT_PEDIDA)
-			FROM ITEM_PEDIDO ITEM2
-			WHERE ITEM2.SUBTIPO=ITEM.SUBTIPO)
-				   
-		\end{verbatim}
+		\small
+		\begin{verbatimtab}
+SELECT ITEM.NRO_PEDIDO, ITEM.SUBTIPO
+FROM ITEM_PEDIDO ITEM
+WHERE ITEM.CANT_PEDIDA>( 
+	SELECT avg(ITEM2.CANT_PEDIDA)
+	FROM ITEM_PEDIDO ITEM2
+	WHERE ITEM2.SUBTIPO=ITEM.SUBTIPO)			   
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}
-		NRO_PEDIDO	SUBTIPO
+		NRO$\_$PEDIDO	SUBTIPO
 		1	KINGSTON DD3 1066 4GB
 		4	KINGSTON DD3 1066 1GB
 		4	KINGSTON DD3 1066 2GB
@@ -337,7 +364,8 @@ que no comercializan.\\
 		
 		\item[Consulta 10] Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
 		
-		\begin{verbatim}
+		\small
+		\begin{verbatimtab}
 		
 		SELECT TIPO, S1.SUBTIPO
 		FROM SUBTIPO_COMPONENTE S1, ITEM_PEDIDO I1
@@ -350,7 +378,8 @@ que no comercializan.\\
 			GROUP BY S2.SUBTIPO)
 		ORDER BY TIPO
 
-		\end{verbatim}		
+		\end{verbatimtab}
+		\normalsize		
 		
 		\paragraph{Resultado}
 		TIPO	SUBTIPO
@@ -366,30 +395,33 @@ que no comercializan.\\
 		
 		\item[Consulta 11] El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.
 		
-		\begin{verbatim}
+		\small
+		\begin{verbatimtab}
 		
-		SELECT SUBTIPO
-		FROM SUBTIPO_COMPONENTE S1
-		WHERE NOT EXISTS(
-			SELECT 'PROVEDOR DE TODOS LOS TIPOS QUE NO LO ENTREGA'
-			FROM PROVEEDOR PR
-			WHERE NOT EXISTS(
-				SELECT 'TIPO NO ENTREGADO'
-				FROM TIPO_COMPONENTE T
-				WHERE NOT EXISTS (
-					SELECT 'TIPO EN CATALOGO'
-					FROM SUBTIPO_COMPONENTE S2, CATALOGO_PROVEEDOR C
-					WHERE S2.TIPO=T.TIPO 
-					AND C.CUIT=PR.CUIT 
-					AND C.SUBTIPO=S2.SUBTIPO))
-			AND PR.CUIT NOT IN (
-				SELECT PE.CUIT
-				FROM ITEM_PEDIDO I, PEDIDO PE
-				WHERE I.NRO_PEDIDO=PE.NRO_PEDIDO 
-				AND S1.SUBTIPO=I.SUBTIPO 
-				AND CANT_RECIBIDA > 0))
+SELECT SUBTIPO
+FROM SUBTIPO_COMPONENTE S1
+WHERE NOT EXISTS(
+	SELECT 'PROVEDOR DE TODOS LOS TIPOS QUE NO LO ENTREGA'
+	FROM PROVEEDOR PR
+	WHERE NOT EXISTS(
+		SELECT 'TIPO NO ENTREGADO'
+		FROM TIPO_COMPONENTE T
+		WHERE NOT EXISTS (
+			SELECT 'TIPO EN CATALOGO'
+			FROM SUBTIPO_COMPONENTE S2, 
+				CATALOGO_PROVEEDOR C
+			WHERE S2.TIPO=T.TIPO 
+			AND C.CUIT=PR.CUIT 
+			AND C.SUBTIPO=S2.SUBTIPO))
+	AND PR.CUIT NOT IN (
+		SELECT PE.CUIT
+		FROM ITEM_PEDIDO I, PEDIDO PE
+		WHERE I.NRO_PEDIDO=PE.NRO_PEDIDO 
+		AND S1.SUBTIPO=I.SUBTIPO 
+		AND CANT_RECIBIDA > 0))
 
-		\end{verbatim}
+		\end{verbatimtab}
+		\normalsize
 		
 		\paragraph{Resultado}
 		SUBTIPO
