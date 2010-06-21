@@ -81,42 +81,89 @@
 	\begin{itemize}
 	
 		\item[Consulta 1] El promedio de mothers pedidas por pedido.\\
+		
 		\begin{verbatim}
-Select sum(CANT_PEDIDA) / (count(distinct PEDIDO.NRO_PEDIDO) * count(distinct PEDIDO.NRO_PEDIDO))
-From PEDIDO, ITEM_PEDIDO, SUBTIPO_COMPONENTE
-Where ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
-  And TIPO = 'MOTHER'
-  
-		SELECT SUM(CANT_PEDIDA) / COUNT ( DISTINCT NRO_PEDIDO)
-		FROM (SELECT NRO_PEDIDO, SUBTIPO ,CANT_PEDIDA
+
+		SELECT sum(CANT_PEDIDA) / (count(distinct PEDIDO.NRO_PEDIDO) * count(distinct PEDIDO.NRO_PEDIDO)) PROMEDIO
+		FROM PEDIDO, ITEM_PEDIDO, SUBTIPO_COMPONENTE
+		WHERE ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
+		AND TIPO = 'MOTHER'
+
+  		\end{verbatim}
+
+		Hipótesis: Hay pedido de mothers.		
+
+		\begin{verbatim}		
+
+		SELECT SUM(CANT_PEDIDA) / COUNT ( DISTINCT NRO_PEDIDO) PROMEDIO
+		FROM (	
+			SELECT NRO_PEDIDO, SUBTIPO ,CANT_PEDIDA
 			FROM ITEM_PEDIDO
-			UNION
-			(SELECT NRO_PEDIDO, I.SUBTIPO,  -CANT_PEDIDA
-			FROM ITEM_PEDIDO I, SUBTIPO_COMPONENTE S
-			WHERE I.SUBTIPO = S.SUBTIPO AND TIPO <> 'MOTHER'))
+			UNION (
+					SELECT NRO_PEDIDO, I.SUBTIPO,  -CANT_PEDIDA
+					FROM ITEM_PEDIDO I, SUBTIPO_COMPONENTE S
+					WHERE I.SUBTIPO = S.SUBTIPO AND TIPO <> 'MOTHER'))
+					
 		\end{verbatim}
 		
+		\paragraph{Resultado}
+		PROMEDIO
+		2,25
+
 		\item[Consulta 2] La razón social de los proveedores tales que existe un producto
 que no comercializan.\\
+		
 		\begin{verbatim}
-Select RAZON_SOCIAL
-From PROVEEDOR pr1
-Where exists (Select * From TIPO_COMPONENTE
-              Where not exists (Select * From CATALOGO_PROVEEDOR, SUBTIPO_COMPONENTE
-                                Where CATALOGO_PROVEEDOR.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
-                                  And pr1.CUIT = CATALOGO_PROVEEDOR.CUIT
-                                  And SUBTIPO_COMPONENTE.TIPO = TIPO_COMPONENTE.TIPO) )
+
+		SELECT RAZON_SOCIAL
+		FROM PROVEEDOR pr1
+		WHERE EXISTS (	
+		SELECT * 
+		FROM TIPO_COMPONENTE
+		WHERE NOT EXISTS(
+			SELECT * 
+		    FROM CATALOGO_PROVEEDOR, SUBTIPO_COMPONENTE
+    	    WHERE CATALOGO_PROVEEDOR.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
+        	AND pr1.CUIT = CATALOGO_PROVEEDOR.CUIT
+	       	AND SUBTIPO_COMPONENTE.TIPO = TIPO_COMPONENTE.TIPO) )
+		
 		\end{verbatim}
 		
-		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.\\
-		\begin{verbatim}
+		\paragraph{Resultado}	   
+		RAZON_SOCIAL
+		Intcomex Argentina S.A.
+		Ceven S.A.
+		Solution Box S.R.L.
 		
+		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.\\
+		
+		\begin{verbatim}
+
 		SELECT TIPO,  S.SUBTIPO, RAZON_SOCIAL
 		FROM SUBTIPO_COMPONENTE S, CATALOGO_PROVEEDOR C, PROVEEDOR P
-		WHERE S.SUBTIPO = C.SUBTIPO AND C.CUIT = P. CUIT AND CANT_STOCK < CANT_MINIMA
+		WHERE S.SUBTIPO = C.SUBTIPO 
+		AND C.CUIT = P. CUIT 
+		AND CANT_STOCK < CANT_MINIMA
 		ORDER BY TIPO, SUBTIPO
 
 		\end{verbatim}
+		
+		\paragraph{Resultado}	   
+		TIPO	SUBTIPO	RAZON_SOCIAL
+		HDD	WD WD1001FALS	Distecna S.A.
+		HDD	WD WD1001FALS	Ceven S.A.
+		HDD	WD WD2001FASS	Distecna S.A.
+		HDD	WD WD2001FASS	Ceven S.A.
+		MEMORIA RAM	KINGSTON DD3 1066 4GB	Ceven S.A.
+		MEMORIA RAM	KINGSTON DD3 1066 4GB	Distecna S.A.
+		MOTHER	GIGABYTE GA-H55M-UD2H	Distecna S.A.
+		MOTHER	GIGABYTE GA-H55M-UD2H	Intcomex Argentina S.A.
+		PLACAS VIDEO	XFX ATI 4860 1GB DDR5	Solution Box S.R.L.
+		PLACAS VIDEO	XFX ATI 4860 1GB DDR5	Distecna S.A.
+		PLACAS VIDEO	XFX ATI 4860 1GB DDR5	Ceven S.A.
+		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Solution Box S.R.L.
+		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Intcomex Argentina S.A.
+		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Distecna S.A.
 		
 		\item[Consulta 4] La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.
 		\begin{verbatim}
@@ -133,7 +180,12 @@ Where exists (Select * From TIPO_COMPONENTE
 
 		\end{verbatim}
 		
+		\paragraph{Resultado}   
+		RAZON_SOCIAL
+		Distecna S.A.
+		
 		\item[Consulta 5] La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
+		
 		\begin{verbatim}
 		
 		SELECT RAZON_SOCIAL, PE.NRO_PEDIDO, SUBTIPO
@@ -146,120 +198,135 @@ Where exists (Select * From TIPO_COMPONENTE
 
 		\end{verbatim}
 		
+		\paragraph{Resultado}
+		Vacío.
+		
 		\item[Consulta 6] La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.
+
 		Lo que entiendo: La razon social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
+		
 		\begin{verbatim}
-select P.RAZON_SOCIAL
-from PROVEEDOR P, CATALOGO_PROVEEDOR CP, SUBTIPO_COMPONENTE S
-where P.CUIT = CP.CUIT
-and CP.SUBTIPO = S.SUBTIPO
-and not exists(
-				select *
-				from PROVEEDOR P2, CATALOGO_PROVEEDOR CP2, SUBTIPO_COMPONENTE S2
-				where P2.CUIT = CP2.CUIT
-				and CP2.SUBTIPO = S2.SUBTIPO
-				and P.CUIT <> P2.CUIT
-				and S.TIPO = S2.TIPO)
+	
+		SELECT P.RAZON_SOCIAL
+		FROM PROVEEDOR P, CATALOGO_PROVEEDOR CP, SUBTIPO_COMPONENTE S
+		WHERE P.CUIT = CP.CUIT
+		AND CP.SUBTIPO = S.SUBTIPO
+		AND NOT EXISTS(
+				SELECT *
+				FROM PROVEEDOR P2, CATALOGO_PROVEEDOR CP2, SUBTIPO_COMPONENTE S2
+				WHERE P2.CUIT = CP2.CUIT
+				AND CP2.SUBTIPO = S2.SUBTIPO
+				AND P.CUIT <> P2.CUIT
+				AND S.TIPO = S2.TIPO)
+		
 		\end{verbatim}
-		Resultado:
+
+		\paragraph{Resultado}
 		RAZON_SOCIAL
 		Distecna S.A.		
 
 		\item[Consulta 7] El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
-				Si lo que pregunta es sobre si los subtipos que puede pedir entonces:
+		
+		Hipótesis: Si lo que pregunta es sobre si los subtipos que puede pedir entonces:
 	
 		\begin{verbatim}
-SELECT sub.subtipo
-FROM  subtipo_componente sub
-WHERE sub.subtipo in 
-					( 	SELECT sub.subtipo
-						FROM subtipo_componente sub, catalogo_proveedor cat, proveedor prov
-						WHERE sub.subtipo=cat.subtipo and cat.cuit=prov.cuit and prov.razon_social='Ceven S.A.'
-					)
-			  and
-	 sub.subtipo not in
-					( 	SELECT sub.subtipo
-						FROM subtipo_componente sub, catalogo_proveedor cat, proveedor prov
-						WHERE sub.subtipo=cat.subtipo and cat.cuit=prov.cuit and not prov.razon_social='Ceven S.A'
-					)
+		SELECT SUB.SUBTIPO
+		FROM  SUBTIPO_COMPONENTE SUB
+		WHERE SUB.SUBTIPO IN (
+			SELECT SUB.SUBTIPO
+			FROM SUBTIPO_COMPONENTE SUB, CATALOGO_PROVEEDOR CAT, PROVEEDOR PROV
+			WHERE SUB.SUBTIPO=CAT.SUBTIPO
+			AND CAT.CUIT=PROV.CUIT
+			AND PROV.RAZON_SOCIAL='Ceven S.A.')
+		AND SUB.SUBTIPO NOT IN(
+			SELECT SUB.SUBTIPO
+			FROM SUBTIPO_COMPONENTE SUB, CATALOGO_PROVEEDOR CAT, PROVEEDOR PROV
+			WHERE SUB.SUBTIPO=CAT.SUBTIPO 
+			AND CAT.CUIT=PROV.CUIT 
+			AND NOT PROV.RAZON_SOCIAL='Ceven S.A.')
+		\end{verbatim}
 		
-Si lo que pregunta es sobre lo que efectivamente se pidio, entonces:
-		\end{verbatim}
+		\paragraph{Resultado}
+		Vacío.		
+		
+		Hipótesis: Si lo que pregunta es sobre lo que efectivamente se pidio, entonces:		
+		
 		\begin{verbatim}		
-SELECT sub.subtipo
-FROM  subtipo_componente sub
-WHERE sub.subtipo in 
-					( 	SELECT sub.subtipo
-						FROM subtipo_componente sub,  proveedor prov, pedido ped, item_pedido item
-						WHERE sub.subtipo=item.subtipo 
-							and ped.nro_pedido=item.nro_pedido 
-							and ped.cuit=prov.cuit 
-							and prov.razon_social='Ceven S.A.'
-					)
-			  and
-	 sub.subtipo not in
-					( 	SELECT sub.subtipo
-						FROM subtipo_componente sub,  proveedor prov, pedido ped, item_pedido item
-						WHERE sub.subtipo=item.subtipo 
-							and ped.nro_pedido=item.nro_pedido 
-							and ped.cuit=prov.cuit 
-							and not prov.razon_social='Ceven S.A.'
-					)		
+		SELECT SUB.SUBTIPO
+		FROM SUBTIPO_COMPONENTE SUB
+		WHERE SUB.SUBTIPO IN (
+			SELECT SUB.SUBTIPO
+			FROM SUBTIPO_COMPONENTE SUB, PROVEEDOR PROV, PEDIDO PED, ITEM_PEDIDO ITEM
+			WHERE SUB.SUBTIPO=ITEM.SUBTIPO
+			AND PED.NRO_PEDIDO=ITEM.NRO_PEDIDO
+			AND PED.CUIT=PROV.CUIT
+			AND PROV.RAZON_SOCIAL='Ceven S.A.')
+		AND SUB.SUBTIPO NOT IN (
+			SELECT SUB.SUBTIPO
+			FROM SUBTIPO_COMPONENTE SUB, PROVEEDOR PROV, PEDIDO PED, ITEM_PEDIDO ITEM
+			WHERE SUB.SUBTIPO=ITEM.SUBTIPO 
+			AND PED.NRO_PEDIDO=ITEM.NRO_PEDIDO 
+			AND PED.CUIT=PROV.CUIT
+			AND PROV.RAZON_SOCIAL='Ceven S.A.')	
 		\end{verbatim}
+
+		\paragraph{Resultado}
+		Vacío.		
+		
 		\item[Consulta 8] El subtipo de los componentes para los cuales el stock informado es distinto del real.
 		
 		Hipotesis: los componentes que existen, no son utilizados en pcs y no estan reservadas para ordenes, forman parte del stock.
 		
 		\begin{verbatim}
 
-SELECT sub.subtipo
-FROM subtipo_componente sub
-WHERE not sub.cant_stock=(
-						SELECT count(*)
-						FROM componente comp
-						WHERE sub.subtipo=comp.subtipo
-								and  comp.codigo_pc IS NULL
-								and  comp.nro_orden IS NULL				
-						)
+		SELECT SUB.SUBTIPO
+		FROM SUBTIPO_COMPONENTE SUB
+		WHERE NOT SUB.CANT_STOCK=(
+			SELECT count(*)
+			FROM COMPONENTE COMP
+			WHERE SUB.SUBTIPO=COMP.SUBTIPO
+			and  COMP.CODIGO_PC IS NULL
+			and  COMP.NRO_ORDEN IS NULL)
 						
 		\end{verbatim}
 		
+		\paragraph{Resultado}
+		SUBTIPO
+		GIGABYTE GA-H55M-UD2H
+		INTEL I7-920
+		KINGSTON DD3 1066 1GB
+		KINGSTON DD3 1066 4GB
+		SAMSUNG 58X SATAII
+		WD WD5001AALS
+		WD WD6401AALS
+		XFX ATI 5700 1GB DDR5
+		
 		\item[Consulta 9] El nro$\_$pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.
+		
 		\begin{verbatim}
-SELECT item.nro_pedido, item.subtipo
-FROM item_pedido item
-WHERE item.cant_pedida>( 
-					SELECT avg(item2.cant_pedida)
-					FROM item_pedido item2
-					WHERE item2.subtipo=item.subtipo
-				   )
+		
+		SELECT ITEM.NRO_PEDIDO, ITEM.SUBTIPO
+		FROM ITEM_PEDIDO ITEM
+		WHERE ITEM.CANT_PEDIDA>( 
+			SELECT avg(ITEM2.CANT_PEDIDA)
+			FROM ITEM_PEDIDO ITEM2
+			WHERE ITEM2.SUBTIPO=ITEM.SUBTIPO)
+				   
 		\end{verbatim}
+		
+		\paragraph{Resultado}
+		NRO_PEDIDO	SUBTIPO
+		1	KINGSTON DD3 1066 4GB
+		4	KINGSTON DD3 1066 1GB
+		4	KINGSTON DD3 1066 2GB
+		4	WD WD5001AALS
+		5	INTEL I7-920
+		7	GIGABYTE GA-H55M-UD2H
 		
 		\item[Consulta 10] Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
-		Lo que entiendo: por cada tipo de componente que haya tengo que mostrar el subtipo que tenga la mayor cantidad recibida.
-		Busco para cada tipo el maximo recibido y despues lo uso como una tabla para buscar el subtipo que tenga esa cantidad.
-		\begin{verbatim}
-select T.TIPO, S.SUBTIPO
-from TIPO_COMPONENTE T, SUBTIPO_COMPONENTE S, ITEM_PEDIDO I, (	select T2.TIPO, max(I2.CANT_RECIBIDA) MAX_CANT
-								from TIPO_COMPONENTE T2, SUBTIPO_COMPONENTE S2, ITEM_PEDIDO I2
-								where T2.TIPO = S2.TIPO
-								and S2.SUBTIPO = I2.SUBTIPO
-								group by T2.TIPO) C
-where T.TIPO = S.TIPO
-and C.TIPO = T.TIPO
-and I.SUBTIPO = S.SUBTIPO
-and I.CANT_RECIBIDA = C.MAX_CANT		
-		\end{verbatim}
-		Resultado
-		TIPO	SUBTIPO
-		MOTHER	GIGABYTE GA-H55M-UD2H
-		DVD-RW	SAMSUNG 58X SATAII
-		PLACAS VIDEO	XFX ATI 5700 1GB DDR5
-		MEMORIA RAM	KINGSTON DD3 1066 1GB
-		HDD	WD WD5001AALS
-		CPU	INTEL I5-540M
 		
 		\begin{verbatim}
+		
 		SELECT TIPO, S1.SUBTIPO
 		FROM SUBTIPO_COMPONENTE S1, ITEM_PEDIDO I1
 		WHERE S1.SUBTIPO = I1.SUBTIPO
@@ -269,9 +336,24 @@ and I.CANT_RECIBIDA = C.MAX_CANT
 			FROM  SUBTIPO_COMPONENTE S2, ITEM_PEDIDO I2
 			WHERE S2.SUBTIPO = I2.SUBTIPO AND S2.TIPO = S1.TIPO
 			GROUP BY S2.SUBTIPO)
-		\end{verbatim}
+		ORDER BY TIPO
+
+		\end{verbatim}		
+		
+		\paragraph{Resultado}
+		TIPO	SUBTIPO
+		CPU	INTEL I5-540M
+		DVD-RW	SAMSUNG 58X SATAII
+		HDD	WD WD5001AALS
+		MEMORIA RAM	KINGSTON DD3 1066 1GB
+		MOTHER	GIGABYTE GA-EX58-UD4P
+		MOTHER	GIGABYTE GA-H55M-UD2H
+		PLACAS VIDEO	XFX ATI 5700 1GB DDR5
+		
+		
 		
 		\item[Consulta 11] El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.
+		
 		\begin{verbatim}
 		
 		SELECT SUBTIPO
@@ -292,6 +374,13 @@ and I.CANT_RECIBIDA = C.MAX_CANT
 				WHERE I.NRO_PEDIDO=PE.NRO_PEDIDO AND S1.SUBTIPO = I.SUBTIPO AND CANT_RECIBIDA > 0))
 
 		\end{verbatim}
+		
+		\paragraph{Resultado}
+		SUBTIPO
+		GIGABYTE GA-EX58-UD4P
+		INTEL I7-920
+		KINGSTON DD3 1066 4GB
+		SAMSUNG 58X SATAII
 		
 	\end{itemize}
 
