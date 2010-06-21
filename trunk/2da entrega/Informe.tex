@@ -173,7 +173,8 @@ que no comercializan.\\
 		WHERE NOT EXISTS (
 			SELECT 'SUBTIPO A REPONER NO COMECIALIZADO'
 			FROM SUBTIPO_COMPONENTE S	
-			WHERE CANT_STOCK < CANT_MINIMA AND NOT EXISTS(
+			WHERE CANT_STOCK < CANT_MINIMA 
+			AND NOT EXISTS(
 				SELECT 'SUBTIPO EN CATALOGO'
 				FROM CATALOGO_PROVEEDOR C
 				WHERE P.CUIT = C.CUIT AND S.SUBTIPO = C.SUBTIPO))
@@ -186,11 +187,14 @@ que no comercializan.\\
 		
 		\item[Consulta 5] La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
 		
+		Interpretación: Obtener los pedidos a proveedores que contienen un item pedido que ese proveedor no comercializa.
+		
 		\begin{verbatim}
 		
 		SELECT RAZON_SOCIAL, PE.NRO_PEDIDO, SUBTIPO
 		FROM PROVEEDOR PR, PEDIDO PE, ITEM_PEDIDO I
-		WHERE PR.CUIT = PE.CUIT AND PE.NRO_PEDIDO = I.NRO_PEDIDO
+		WHERE PR.CUIT = PE.CUIT 
+		AND PE.NRO_PEDIDO = I.NRO_PEDIDO
 		AND I.SUBTIPO NOT IN (
 			SELECT SUBTIPO
 			FROM CATALOGO_PROVEEDOR C
@@ -202,8 +206,27 @@ que no comercializan.\\
 		Vacío.
 		
 		\item[Consulta 6] La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.
-
-		Lo que entiendo: La razon social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
+		
+		Interpretación: La razón social de los proveedores que proveen un solo tipo de componente.
+		
+		\begin{verbatim}
+		SELECT DISTINCT RAZON_SOCIAL
+		FROM PROVEEDOR P, CATALOGO_PROVEEDOR C1, SUBTIPO_COMPONENTE S1
+		WHERE P.CUIT = C1.CUIT  
+		AND S1.SUBTIPO = C1.SUBTIPO
+		AND NOT EXISTS (
+			SELECT 'OTRO TIPO PROVISTO'
+			FROM CATALOGO_PROVEEDOR C2, SUBTIPO_COMPONENTE S2
+			WHERE C2.SUBTIPO = S2.SUBTIPO 
+			AND C1.CUIT = C2.CUIT 
+			AND S1.TIPO <> S2.TIPO)
+		\end{verbatim}
+		
+		\paragraph{Resultado}
+		RAZON_SOCIAL
+		Solution Box S.R.L.
+		
+		Interpretación: La razón social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
 		
 		\begin{verbatim}
 	
@@ -356,11 +379,15 @@ que no comercializan.\\
 				WHERE NOT EXISTS (
 					SELECT 'TIPO EN CATALOGO'
 					FROM SUBTIPO_COMPONENTE S2, CATALOGO_PROVEEDOR C
-					WHERE S2.TIPO = T.TIPO AND C.CUIT = PR.CUIT AND C.SUBTIPO =S2.SUBTIPO))
+					WHERE S2.TIPO=T.TIPO 
+					AND C.CUIT=PR.CUIT 
+					AND C.SUBTIPO=S2.SUBTIPO))
 			AND PR.CUIT NOT IN (
 				SELECT PE.CUIT
 				FROM ITEM_PEDIDO I, PEDIDO PE
-				WHERE I.NRO_PEDIDO=PE.NRO_PEDIDO AND S1.SUBTIPO = I.SUBTIPO AND CANT_RECIBIDA > 0))
+				WHERE I.NRO_PEDIDO=PE.NRO_PEDIDO 
+				AND S1.SUBTIPO=I.SUBTIPO 
+				AND CANT_RECIBIDA > 0))
 
 		\end{verbatim}
 		
