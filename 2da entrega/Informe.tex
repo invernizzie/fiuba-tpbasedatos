@@ -86,6 +86,14 @@ Select sum(CANT_PEDIDA) / (count(distinct PEDIDO.NRO_PEDIDO) * count(distinct PE
 From PEDIDO, ITEM_PEDIDO, SUBTIPO_COMPONENTE
 Where ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
   And TIPO = 'MOTHER'
+  
+		SELECT SUM(CANT_PEDIDA) / COUNT ( DISTINCT NRO_PEDIDO)
+		FROM (SELECT NRO_PEDIDO, SUBTIPO ,CANT_PEDIDA
+			FROM ITEM_PEDIDO
+			UNION
+			(SELECT NRO_PEDIDO, I.SUBTIPO,  -CANT_PEDIDA
+			FROM ITEM_PEDIDO I, SUBTIPO_COMPONENTE S
+			WHERE I.SUBTIPO = S.SUBTIPO AND TIPO <> 'MOTHER'))
 		\end{verbatim}
 		
 		\item[Consulta 2] La razón social de los proveedores tales que existe un producto
@@ -250,6 +258,18 @@ and I.CANT_RECIBIDA = C.MAX_CANT
 		MEMORIA RAM	KINGSTON DD3 1066 1GB
 		HDD	WD WD5001AALS
 		CPU	INTEL I5-540M
+		
+		\begin{verbatim}
+		SELECT TIPO, S1.SUBTIPO
+		FROM SUBTIPO_COMPONENTE S1, ITEM_PEDIDO I1
+		WHERE S1.SUBTIPO = I1.SUBTIPO
+		GROUP BY TIPO,  S1.SUBTIPO
+		HAVING SUM (CANT_RECIBIDA) >= ALL (
+			SELECT SUM(CANT_RECIBIDA)
+			FROM  SUBTIPO_COMPONENTE S2, ITEM_PEDIDO I2
+			WHERE S2.SUBTIPO = I2.SUBTIPO AND S2.TIPO = S1.TIPO
+			GROUP BY S2.SUBTIPO)
+		\end{verbatim}
 		
 		\item[Consulta 11] El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.
 		\begin{verbatim}
