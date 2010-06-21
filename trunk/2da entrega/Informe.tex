@@ -267,7 +267,7 @@ que no comercializan.\\
 			WHERE SUB.SUBTIPO=ITEM.SUBTIPO 
 			AND PED.NRO_PEDIDO=ITEM.NRO_PEDIDO 
 			AND PED.CUIT=PROV.CUIT
-			AND PROV.RAZON_SOCIAL='Ceven S.A.')	
+			AND NOT PROV.RAZON_SOCIAL='Ceven S.A.')	
 		\end{verbatim}
 
 		\paragraph{Resultado}
