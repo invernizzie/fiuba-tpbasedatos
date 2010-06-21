@@ -3,6 +3,7 @@
 \usepackage [T1]{fontenc}
 \usepackage [latin1]{inputenc}
 \usepackage{graphicx} 
+\usepackage{float}
 \usepackage{verbatim}
 \usepackage{array}
 	  \oddsidemargin 0in
@@ -82,12 +83,13 @@
 
 	Esta segunda entrega consta de la resolución y la expresión en lenguaje SQL de once consultas, contra un esquema relacional propuesto por la cátedra. Las sentencias y cláusulas a utilizar fueron restringidas a las presentadas por la cátedra en la cartilla del apunte del lenguaje SQL.
 
+\clearpage
 \section{Consultas y resolución}
 	
-	\begin{itemize}
+	\subsection*{Consulta 1}
 	
-		\item[Consulta 1] El promedio de mothers pedidas por pedido.\\
-		
+		 \textit{El promedio de mothers pedidas por pedido}
+
 		\small
 		\begin{verbatimtab}
 
@@ -117,15 +119,20 @@ FROM (
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}
-		PROMEDIO
-		2,25
-
-		\item[Consulta 2] La razón social de los proveedores tales que existe un producto
-que no comercializan.\\
 		
-		\small
-		\begin{verbatimtab}
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/1.jpg}
+			\end{figure}
+
+	\clearpage
+	\subsection*{Consulta 2}
+	\textit{La razón social de los proveedores tales que existe un producto
+que no comercializan.}
+	
+			\small
+			
+			\begin{verbatimtab}
 
 SELECT RAZON_SOCIAL
 FROM PROVEEDOR pr1
@@ -142,13 +149,15 @@ WHERE EXISTS (
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}	   
-		RAZON$\_$SOCIAL
-		Intcomex Argentina S.A.
-		Ceven S.A.
-		Solution Box S.R.L.
+		   
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/2.jpg}
+			\end{figure}		
 		
-		\item[Consulta 3] Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.\\
+		\clearpage
+		\subsection*{Consulta 3}
+		\textit{Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.}
 		
 		\small
 		\begin{verbatimtab}
@@ -163,25 +172,16 @@ ORDER BY TIPO, SUBTIPO
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}	   
-		TIPO	SUBTIPO	RAZON$\_$SOCIAL
-		HDD	WD WD1001FALS	Distecna S.A.
-		HDD	WD WD1001FALS	Ceven S.A.
-		HDD	WD WD2001FASS	Distecna S.A.
-		HDD	WD WD2001FASS	Ceven S.A.
-		MEMORIA RAM	KINGSTON DD3 1066 4GB	Ceven S.A.
-		MEMORIA RAM	KINGSTON DD3 1066 4GB	Distecna S.A.
-		MOTHER	GIGABYTE GA-H55M-UD2H	Distecna S.A.
-		MOTHER	GIGABYTE GA-H55M-UD2H	Intcomex Argentina S.A.
-		PLACAS VIDEO	XFX ATI 4860 1GB DDR5	Solution Box S.R.L.
-		PLACAS VIDEO	XFX ATI 4860 1GB DDR5	Distecna S.A.
-		PLACAS VIDEO	XFX ATI 4860 1GB DDR5	Ceven S.A.
-		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Solution Box S.R.L.
-		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Intcomex Argentina S.A.
-		PLACAS VIDEO	XFX ATI 5700 1GB DDR5	Distecna S.A.
 		
-			
-		\item[Consulta 4] La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.
+
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/3.jpg}
+			\end{figure}	
+		
+		\clearpage
+		\subsection*{Consulta 4}
+		\textit{La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.}
 		
 		\small
 		\begin{verbatimtab}
@@ -200,11 +200,15 @@ WHERE NOT EXISTS (
 		\end{verbatimtab}
 		\normalsize
 			
-		\paragraph{Resultado}   
-		RAZON$\_$SOCIAL
-		Distecna S.A.
+		  
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/4.jpg}
+			\end{figure}		
 		
-		\item[Consulta 5] La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.
+		\clearpage
+		\subsection*{Consulta 5}
+		\textit{La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.}
 		
 		Interpretación: Obtener los pedidos a proveedores que contienen un item pedido que ese proveedor no comercializa.
 		
@@ -223,12 +227,18 @@ WHERE 	PR.CUIT = PE.CUIT
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}
-		Vacío.
 		
-		\item[Consulta 6] La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/5.jpg}
+			\end{figure}		
 		
-		Interpretación: La razón social de los proveedores que proveen un solo tipo de componente.
+		\clearpage
+		\subsection*{Consulta 6}
+		\textit{La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.}
+		
+		\subsubsection*{Interpretacion 1}
+			La razón social de los proveedores que proveen un solo tipo de componente.
 		
 		\small
 		\begin{verbatimtab}
@@ -245,10 +255,13 @@ AND NOT EXISTS (
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}
-		RAZON$\_$SOCIAL
-		Solution Box S.R.L.
 		
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/6a.jpg}
+			\end{figure}	
+		
+		\subsubsection*{Interpretacion 2}
 		Interpretación: La razón social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
 		
 		\small
@@ -267,11 +280,15 @@ AND NOT EXISTS(
 		\end{verbatimtab}
 		\normalsize
 
-		\paragraph{Resultado}
-		RAZON$\_$SOCIAL
-		Distecna S.A.		
-
-		\item[Consulta 7] El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.
+		
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/6b.jpg}
+			\end{figure}		
+			
+		\clearpage
+		\subsection*{Consulta 7}
+		\textit{El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.}
 		
 		Hipótesis: Lo entregado se encuentra en ITEM$\_$PEDIDO y tiene cantidad recibida mayor a cero.
 		
@@ -300,17 +317,15 @@ AND NOT EXISTS (
 		\end{verbatimtab}
 		\normalsize
 
-		\paragraph{Resultado}
-		SUBTIPO
-		WD WD5001AALS
-		KINGSTON DD3 1066 2GB
-		WD WD2001FASS
-		WD WD6401AALS
-		WD WD1001FALS
-		XFX ATI 4860 1GB DDR5
-		KINGSTON DD3 1066 1GB	
 		
-		\item[Consulta 8] El subtipo de los componentes para los cuales el stock informado es distinto del real.
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/7.jpg}
+			\end{figure}		
+		
+		\clearpage
+		\subsection*{Consulta 8}
+		\textit{El subtipo de los componentes para los cuales el stock informado es distinto del real.}
 		
 		Hipotesis: los componentes que existen, no son utilizados en pcs y no estan reservadas para ordenes, forman parte del stock.
 		
@@ -329,18 +344,15 @@ WHERE NOT SUB.CANT_STOCK=(
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}
-		SUBTIPO
-		GIGABYTE GA-H55M-UD2H
-		INTEL I7-920
-		KINGSTON DD3 1066 1GB
-		KINGSTON DD3 1066 4GB
-		SAMSUNG 58X SATAII
-		WD WD5001AALS
-		WD WD6401AALS
-		XFX ATI 5700 1GB DDR5
 		
-		\item[Consulta 9] El nro$\_$pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/8.jpg}
+			\end{figure}		
+		
+		\clearpage
+		\subsection*{Consulta 9}
+		\textit{El nro$\_$pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.}
 		
 		\small
 		\begin{verbatimtab}
@@ -353,16 +365,16 @@ WHERE ITEM.CANT_PEDIDA>(
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}
-		NRO$\_$PEDIDO	SUBTIPO
-		1	KINGSTON DD3 1066 4GB
-		4	KINGSTON DD3 1066 1GB
-		4	KINGSTON DD3 1066 2GB
-		4	WD WD5001AALS
-		5	INTEL I7-920
-		7	GIGABYTE GA-H55M-UD2H
 		
-		\item[Consulta 10] Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/9.jpg}
+			\end{figure}		
+		
+		\clearpage
+		\subsection*{Consulta 10}
+		\textit{ Para cada tipo de componente el subtipo de componente que tenga la mayor cantidad recibida.}
+		
 		
 		\small
 		\begin{verbatimtab}
@@ -381,19 +393,17 @@ WHERE ITEM.CANT_PEDIDA>(
 		\end{verbatimtab}
 		\normalsize		
 		
-		\paragraph{Resultado}
-		TIPO	SUBTIPO
-		CPU	INTEL I5-540M
-		DVD-RW	SAMSUNG 58X SATAII
-		HDD	WD WD5001AALS
-		MEMORIA RAM	KINGSTON DD3 1066 1GB
-		MOTHER	GIGABYTE GA-EX58-UD4P
-		MOTHER	GIGABYTE GA-H55M-UD2H
-		PLACAS VIDEO	XFX ATI 5700 1GB DDR5
+		
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/10.jpg}
+			\end{figure}		
+		
+		\clearpage
+		\subsection*{Consulta 11}
+		\textit{ El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.}
 		
 		
-		
-		\item[Consulta 11] El subtipo de los componentes entregados por todos los proveedores que comercializan todos los tipos de componentes.
 		
 		\small
 		\begin{verbatimtab}
@@ -423,15 +433,10 @@ WHERE NOT EXISTS(
 		\end{verbatimtab}
 		\normalsize
 		
-		\paragraph{Resultado}
-		SUBTIPO
-		GIGABYTE GA-EX58-UD4P
-		INTEL I7-920
-		KINGSTON DD3 1066 4GB
-		SAMSUNG 58X SATAII
 		
-	\end{itemize}
-
-   
+			\begin{figure}[H]
+			\centering
+			\includegraphics[scale=0.5]{resultados/11.jpg}
+			\end{figure}		
 
 \end{document}
