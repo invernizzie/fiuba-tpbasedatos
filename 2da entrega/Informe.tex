@@ -88,22 +88,6 @@
 	
 	\subsection*{Consulta 1}
 	
-		 \textit{El promedio de mothers pedidas por pedido}
-
-		\small
-		\begin{verbatimtab}
-
-SELECT sum(CANT_PEDIDA) / (count(distinct PEDIDO.NRO_PEDIDO) 
-				* count(distinct PEDIDO.NRO_PEDIDO)) PROMEDIO
-FROM PEDIDO, ITEM_PEDIDO, SUBTIPO_COMPONENTE
-WHERE 	ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
-		AND TIPO = 'MOTHER'
-
-  		\end{verbatimtab}
-		\normalsize
-
-		Hipótesis: Hay algún pedido de mothers.		
-
 		\small
 		\begin{verbatimtab}		
 
@@ -118,7 +102,6 @@ FROM (
 					
 		\end{verbatimtab}
 		\normalsize
-		
 		
 			\begin{figure}[H]
 			\centering
@@ -236,6 +219,8 @@ WHERE 	PR.CUIT = PE.CUIT
 		\clearpage
 		\subsection*{Consulta 6}
 		\textit{La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.}
+		
+		En este caso el enunciado resulta ambigüo y surgen dos interpretaciones de la definición de la consulta, por lo cual proveemos solución para ambas.
 		
 		\subsubsection*{Interpretación 1}
 			La razón social de los proveedores que proveen un solo tipo de componente.
