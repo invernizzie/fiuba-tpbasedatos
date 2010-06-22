@@ -28,7 +28,7 @@
 \begin{table}[!h]
 	\begin{tabular}{m{2cm}m{15cm}}
 		\multicolumn{1}{l}{} &
-		% \includegraphics[scale=0.5, bb=0 0 0 0]{logo-fiuba.PNG} & 
+		 \includegraphics[scale=0.5, bb=0 0 0 0]{../logo-fiuba.PNG} & 
 		 \begin{center}
 		 	\begin{LARGE}
 				Universidad de Buenos Aires	\linebreak \linebreak		 							Facultad de Ingenier\'{i}a  \linebreak \linebreak
@@ -102,19 +102,19 @@ WHERE 	ITEM_PEDIDO.SUBTIPO = SUBTIPO_COMPONENTE.SUBTIPO
   		\end{verbatimtab}
 		\normalsize
 
-		Hipótesis: Hay pedido de mothers.		
+		Hipótesis: Hay algún pedido de mothers.		
 
 		\small
 		\begin{verbatimtab}		
 
-SELECT SUM(CANT_PEDIDA) / COUNT ( DISTINCT NRO_PEDIDO) PROMEDIO
+SELECT sum(CANT_PEDIDA) / count(DISTINCT NRO_PEDIDO) PROMEDIO
 FROM (	
-	SELECT NRO_PEDIDO, SUBTIPO ,CANT_PEDIDA
+	SELECT NRO_PEDIDO, SUBTIPO, CANT_PEDIDA
 	FROM ITEM_PEDIDO
-	UNION (
-			SELECT NRO_PEDIDO, I.SUBTIPO,  -CANT_PEDIDA
-			FROM ITEM_PEDIDO I, SUBTIPO_COMPONENTE S
-			WHERE I.SUBTIPO = S.SUBTIPO AND TIPO <> 'MOTHER'))
+	UNION
+	SELECT NRO_PEDIDO, I.SUBTIPO, -CANT_PEDIDA
+	FROM ITEM_PEDIDO I, SUBTIPO_COMPONENTE S
+	WHERE I.SUBTIPO = S.SUBTIPO AND TIPO <> 'MOTHER' )
 					
 		\end{verbatimtab}
 		\normalsize
@@ -122,7 +122,7 @@ FROM (
 		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/1.jpg}
+			\includegraphics[scale=1]{resultados/1.jpg}
 			\end{figure}
 
 	\clearpage
@@ -152,7 +152,7 @@ WHERE EXISTS (
 		   
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/2.jpg}
+			\includegraphics[scale=1]{resultados/2.jpg}
 			\end{figure}		
 		
 		\clearpage
@@ -176,7 +176,7 @@ ORDER BY TIPO, SUBTIPO
 
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/3.jpg}
+			\includegraphics[scale=0.75]{resultados/3.jpg}
 			\end{figure}	
 		
 		\clearpage
@@ -203,7 +203,7 @@ WHERE NOT EXISTS (
 		  
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/4.jpg}
+			\includegraphics[scale=1]{resultados/4.jpg}
 			\end{figure}		
 		
 		\clearpage
@@ -230,14 +230,14 @@ WHERE 	PR.CUIT = PE.CUIT
 		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/5.jpg}
+			\includegraphics[scale=1]{resultados/5.jpg}
 			\end{figure}		
 		
 		\clearpage
 		\subsection*{Consulta 6}
 		\textit{La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.}
 		
-		\subsubsection*{Interpretacion 1}
+		\subsubsection*{Interpretación 1}
 			La razón social de los proveedores que proveen un solo tipo de componente.
 		
 		\small
@@ -254,15 +254,14 @@ AND NOT EXISTS (
 	AND S1.TIPO <> S2.TIPO)
 		\end{verbatimtab}
 		\normalsize
-		
-		
+
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/6a.jpg}
+			\includegraphics[scale=1]{resultados/6a.jpg}
 			\end{figure}	
-		
-		\subsubsection*{Interpretacion 2}
-		Interpretación: La razón social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
+			
+		\subsubsection*{Interpretación 2}
+		La razón social de los proveedores que tienen en su catalogo un tipo de componente que no esta en el catalogo de ningún otro proveedor.
 		
 		\small
 		\begin{verbatimtab}	
@@ -270,27 +269,26 @@ SELECT P.RAZON_SOCIAL
 FROM PROVEEDOR P, CATALOGO_PROVEEDOR CP, SUBTIPO_COMPONENTE S
 WHERE P.CUIT = CP.CUIT
 AND CP.SUBTIPO = S.SUBTIPO
-AND NOT EXISTS(
+AND NOT EXISTS (
 	SELECT *
 	FROM PROVEEDOR P2, CATALOGO_PROVEEDOR CP2, SUBTIPO_COMPONENTE S2
 	WHERE P2.CUIT = CP2.CUIT
 	AND CP2.SUBTIPO = S2.SUBTIPO
 	AND P.CUIT <> P2.CUIT
-	AND S.TIPO = S2.TIPO)	
+	AND S.TIPO = S2.TIPO )
 		\end{verbatimtab}
 		\normalsize
 
-		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/6b.jpg}
+			\includegraphics[scale=1]{resultados/6b.jpg}
 			\end{figure}		
 			
 		\clearpage
 		\subsection*{Consulta 7}
 		\textit{El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.}
 		
-		Hipótesis: Lo entregado se encuentra en ITEM$\_$PEDIDO y tiene cantidad recibida mayor a cero.
+		Hipótesis: Los items entregados son los que se encuentran en ITEM$\_$PEDIDO con CANT$\_$RECIBIDA mayor a cero.
 		
 		\small
 		\begin{verbatimtab}		
@@ -304,7 +302,7 @@ WHERE EXISTS (
 	AND PE1.NRO_PEDIDO = I1.NRO_PEDIDO 
 	AND PR1.CUIT = PE1.CUIT
 	AND CANT_RECIBIDA > 0 
-	AND RAZON_SOCIAL='Ceven S.A.')
+	AND RAZON_SOCIAL = 'Ceven S.A.' )
 AND NOT EXISTS (
 	SELECT 'ENTREGA DE CEVEN S.A.'
 	FROM ITEM_PEDIDO I2, PEDIDO PE2, PROVEEDOR PR2
@@ -312,7 +310,7 @@ AND NOT EXISTS (
 	AND PE2.NRO_PEDIDO = I2.NRO_PEDIDO 
 	AND PR2.CUIT = PE2.CUIT
 	AND CANT_RECIBIDA > 0 
-	AND RAZON_SOCIAL<>'Ceven S.A.')
+	AND RAZON_SOCIAL <> 'Ceven S.A.' )
 					
 		\end{verbatimtab}
 		\normalsize
@@ -320,26 +318,26 @@ AND NOT EXISTS (
 		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/7.jpg}
+			\includegraphics[scale=1]{resultados/7.jpg}
 			\end{figure}		
 		
 		\clearpage
 		\subsection*{Consulta 8}
 		\textit{El subtipo de los componentes para los cuales el stock informado es distinto del real.}
 		
-		Hipotesis: los componentes que existen, no son utilizados en pcs y no estan reservadas para ordenes, forman parte del stock.
+		Hipotesis: los componentes que existen en COMPONENTE no son utilizados en PCs y no estan reservadas para ordenes, forman parte del stock.
 		
 		\small
 		\begin{verbatimtab}
 
 SELECT SUB.SUBTIPO
 FROM SUBTIPO_COMPONENTE SUB
-WHERE NOT SUB.CANT_STOCK=(
+WHERE SUB.CANT_STOCK <> (
 	SELECT count(*)
 	FROM COMPONENTE COMP
-	WHERE SUB.SUBTIPO=COMP.SUBTIPO
-	and  COMP.CODIGO_PC IS NULL
-	and  COMP.NRO_ORDEN IS NULL)
+	WHERE SUB.SUBTIPO = COMP.SUBTIPO
+	AND  COMP.CODIGO_PC IS NULL
+	AND  COMP.NRO_ORDEN IS NULL )
 						
 		\end{verbatimtab}
 		\normalsize
@@ -347,7 +345,7 @@ WHERE NOT SUB.CANT_STOCK=(
 		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/8.jpg}
+			\includegraphics[scale=1]{resultados/8.jpg}
 			\end{figure}		
 		
 		\clearpage
@@ -358,17 +356,16 @@ WHERE NOT SUB.CANT_STOCK=(
 		\begin{verbatimtab}
 SELECT ITEM.NRO_PEDIDO, ITEM.SUBTIPO
 FROM ITEM_PEDIDO ITEM
-WHERE ITEM.CANT_PEDIDA>( 
-	SELECT avg(ITEM2.CANT_PEDIDA)
-	FROM ITEM_PEDIDO ITEM2
-	WHERE ITEM2.SUBTIPO=ITEM.SUBTIPO)			   
+WHERE ITEM.CANT_PEDIDA > ( SELECT avg(ITEM2.CANT_PEDIDA)
+                           FROM ITEM_PEDIDO ITEM2
+                           WHERE ITEM2.SUBTIPO = ITEM.SUBTIPO )			   
+		
 		\end{verbatimtab}
 		\normalsize
 		
-		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/9.jpg}
+			\includegraphics[scale=1]{resultados/9.jpg}
 			\end{figure}		
 		
 		\clearpage
@@ -379,16 +376,16 @@ WHERE ITEM.CANT_PEDIDA>(
 		\small
 		\begin{verbatimtab}
 		
-		SELECT TIPO, S1.SUBTIPO
-		FROM SUBTIPO_COMPONENTE S1, ITEM_PEDIDO I1
-		WHERE S1.SUBTIPO = I1.SUBTIPO
-		GROUP BY TIPO,  S1.SUBTIPO
-		HAVING SUM (CANT_RECIBIDA) >= ALL (
-			SELECT SUM(CANT_RECIBIDA)
-			FROM  SUBTIPO_COMPONENTE S2, ITEM_PEDIDO I2
-			WHERE S2.SUBTIPO = I2.SUBTIPO AND S2.TIPO = S1.TIPO
-			GROUP BY S2.SUBTIPO)
-		ORDER BY TIPO
+SELECT TIPO, S1.SUBTIPO
+FROM SUBTIPO_COMPONENTE S1, ITEM_PEDIDO I1
+WHERE S1.SUBTIPO = I1.SUBTIPO
+GROUP BY TIPO,  S1.SUBTIPO
+HAVING SUM (CANT_RECIBIDA) >= ALL (
+	SELECT SUM(CANT_RECIBIDA)
+	FROM  SUBTIPO_COMPONENTE S2, ITEM_PEDIDO I2
+	WHERE S2.SUBTIPO = I2.SUBTIPO AND S2.TIPO = S1.TIPO
+	GROUP BY S2.SUBTIPO )
+ORDER BY TIPO
 
 		\end{verbatimtab}
 		\normalsize		
@@ -396,7 +393,7 @@ WHERE ITEM.CANT_PEDIDA>(
 		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/10.jpg}
+			\includegraphics[scale=1]{resultados/10.jpg}
 			\end{figure}		
 		
 		\clearpage
@@ -410,25 +407,25 @@ WHERE ITEM.CANT_PEDIDA>(
 		
 SELECT SUBTIPO
 FROM SUBTIPO_COMPONENTE S1
-WHERE NOT EXISTS(
+WHERE NOT EXISTS (
 	SELECT 'PROVEDOR DE TODOS LOS TIPOS QUE NO LO ENTREGA'
 	FROM PROVEEDOR PR
-	WHERE NOT EXISTS(
+	WHERE NOT EXISTS (
 		SELECT 'TIPO NO ENTREGADO'
 		FROM TIPO_COMPONENTE T
 		WHERE NOT EXISTS (
 			SELECT 'TIPO EN CATALOGO'
 			FROM SUBTIPO_COMPONENTE S2, 
 				CATALOGO_PROVEEDOR C
-			WHERE S2.TIPO=T.TIPO 
-			AND C.CUIT=PR.CUIT 
-			AND C.SUBTIPO=S2.SUBTIPO))
+			WHERE S2.TIPO = T.TIPO 
+			AND C.CUIT = PR.CUIT 
+			AND C.SUBTIPO = S2.SUBTIPO ) )
 	AND PR.CUIT NOT IN (
 		SELECT PE.CUIT
 		FROM ITEM_PEDIDO I, PEDIDO PE
-		WHERE I.NRO_PEDIDO=PE.NRO_PEDIDO 
+		WHERE I.NRO_PEDIDO = PE.NRO_PEDIDO 
 		AND S1.SUBTIPO=I.SUBTIPO 
-		AND CANT_RECIBIDA > 0))
+		AND CANT_RECIBIDA > 0 ) )
 
 		\end{verbatimtab}
 		\normalsize
@@ -436,7 +433,7 @@ WHERE NOT EXISTS(
 		
 			\begin{figure}[H]
 			\centering
-			\includegraphics[scale=0.5]{resultados/11.jpg}
+			\includegraphics[scale=1]{resultados/11.jpg}
 			\end{figure}		
 
 \end{document}
