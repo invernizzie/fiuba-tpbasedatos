@@ -87,7 +87,8 @@
 \section{Consultas y resolución}
 	
 	\subsection*{Consulta 1}
-	
+	\textit{ El promedio de mothers pedidas por pedido.}
+		
 		\small
 		\begin{verbatimtab}		
 
@@ -110,7 +111,7 @@ FROM (
 
 	\clearpage
 	\subsection*{Consulta 2}
-	\textit{La razón social de los proveedores tales que existe un producto
+	\textit{ La razón social de los proveedores tales que existe un producto
 que no comercializan.}
 	
 			\small
@@ -140,7 +141,7 @@ WHERE EXISTS (
 		
 		\clearpage
 		\subsection*{Consulta 3}
-		\textit{Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.}
+		\textit{ Un listado alfabético de subtipos de componentes a reponer indicando tipo de componente, subtipo de componente y razon$\_$social de los proveedores que los comercializan.}
 		
 		\small
 		\begin{verbatimtab}
@@ -164,7 +165,7 @@ ORDER BY TIPO, SUBTIPO
 		
 		\clearpage
 		\subsection*{Consulta 4}
-		\textit{La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.}
+		\textit{ La razon$\_$social de los proveedores que comercializan todos los subtipos de componentes a reponer.}
 		
 		\small
 		\begin{verbatimtab}
@@ -191,7 +192,7 @@ WHERE NOT EXISTS (
 		
 		\clearpage
 		\subsection*{Consulta 5}
-		\textit{La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.}
+		\textit{ La razon$\_$social, el nro$\_$pedido y el subtipo de componente de los ítems de pedidos de subtipos de componente no comercializados por el proveedor del pedido.}
 		
 		Interpretación: Obtener los pedidos a proveedores que contienen un item pedido que ese proveedor no comercializa.
 		
@@ -218,7 +219,7 @@ WHERE 	PR.CUIT = PE.CUIT
 		
 		\clearpage
 		\subsection*{Consulta 6}
-		\textit{La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.}
+		\textit{ La razon$\_$social de los proveedores que comercializan exclusivamente un tipo de componente.}
 		
 		En este caso el enunciado resulta ambigüo y surgen dos interpretaciones de la definición de la consulta, por lo cual proveemos solución para ambas.
 		
@@ -271,7 +272,7 @@ AND NOT EXISTS (
 			
 		\clearpage
 		\subsection*{Consulta 7}
-		\textit{El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.}
+		\textit{ El subtipo de los componentes entregados exclusivamente por el proveedor 'Ceven S.A.'.}
 		
 		Hipótesis: Los items entregados son los que se encuentran en ITEM$\_$PEDIDO con CANT$\_$RECIBIDA mayor a cero.
 		
@@ -308,7 +309,7 @@ AND NOT EXISTS (
 		
 		\clearpage
 		\subsection*{Consulta 8}
-		\textit{El subtipo de los componentes para los cuales el stock informado es distinto del real.}
+		\textit{ El subtipo de los componentes para los cuales el stock informado es distinto del real.}
 		
 		Hipotesis: los componentes que existen en COMPONENTE no son utilizados en PCs y no estan reservadas para ordenes, forman parte del stock.
 		
@@ -335,7 +336,7 @@ WHERE SUB.CANT_STOCK <> (
 		
 		\clearpage
 		\subsection*{Consulta 9}
-		\textit{El nro$\_$pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.}
+		\textit{ El nro$\_$pedido y el subtipo de componentes de los ítems de pedidos cuya cantidad pedida supere a la cantidad pedida promedio de ese subtipo de componentes.}
 		
 		\small
 		\begin{verbatimtab}
